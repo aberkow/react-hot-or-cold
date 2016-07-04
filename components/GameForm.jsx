@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 class GameForm extends React.Component{
   constructor(props){
     super(props);
+    
   }
 
-  guessButtonClick: function(evt){
+  guessButtonClick(evt){
     evt.preventDefault();
   }
 

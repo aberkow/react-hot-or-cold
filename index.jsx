@@ -1,24 +1,51 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+var Provider = require('react-redux').Provider;
 
+import Game from './components/Game';
+
+// import GameForm from './components/GameForm';
+// import GuessCountAndList from './components/GuessCountAndList';
+// import Header from './components/Header';
+
+import actions from './js/actions';
 import store from './js/store';
 
-class Game extends React.Component{
-  constructor(props){
-    super(props);
-  }
-  render() {
-    return (
-      <div>
-        <Header />
-        <h2 id='feedback'>Make your Guess!</h2>
-        <GameForm />
-        <GuessCountAndList />
-      </div>
-    );
-  }
-}
+// class Provider extends React.Component{
+//   constructor(props){
+//     super(props);
+//   }
+//   render(){
+//     return (
+//       <Game />
+//     );
+//   }
+// }
+
+// var secretNumber = Math.floor(Math.random() * 100) + 1;
+
+// class Game extends React.Component{
+//   constructor(props){
+//     super(props);
+//   }
+//
+//   componentWillMount(){
+//     //this.props.dispatch(actions.newGame(this.props.secretNumber));
+//   }
+//   newGame(){
+//     this.props.dispatch(actions.newGame());
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <Header />
+//         <h2 id='feedback'>Make your Guess!</h2>
+//         <GameForm />
+//         <GuessCountAndList />
+//       </div>
+//     );
+//   }
+// }
 
 document.addEventListener('DOMContentLoaded', function(){
   ReactDOM.render(

@@ -8,6 +8,14 @@ class Header extends React.Component{
   constructor(){
     super();
   }
+  newGame(){
+
+  }
+
+  // newGame(){
+  //   console.log(this.props.dispatch, 'from Header');
+  //   this.props.dispatch(actions.newGame());
+  // }
   render(){
     return(
       <div>

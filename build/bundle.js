@@ -46,8 +46,6 @@
 
 	'use strict';
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -56,55 +54,67 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _reactRedux = __webpack_require__(168);
+	var _Game = __webpack_require__(168);
 	
-	var _store = __webpack_require__(190);
+	var _Game2 = _interopRequireDefault(_Game);
+	
+	var _actions = __webpack_require__(192);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _store = __webpack_require__(195);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var Provider = __webpack_require__(170).Provider;
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	// import GameForm from './components/GameForm';
+	// import GuessCountAndList from './components/GuessCountAndList';
+	// import Header from './components/Header';
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	// class Provider extends React.Component{
+	//   constructor(props){
+	//     super(props);
+	//   }
+	//   render(){
+	//     return (
+	//       <Game />
+	//     );
+	//   }
+	// }
 	
-	var Game = function (_React$Component) {
-	  _inherits(Game, _React$Component);
+	// var secretNumber = Math.floor(Math.random() * 100) + 1;
 	
-	  function Game(props) {
-	    _classCallCheck(this, Game);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Game).call(this, props));
-	  }
-	
-	  _createClass(Game, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(Header, null),
-	        _react2.default.createElement(
-	          'h2',
-	          { id: 'feedback' },
-	          'Make your Guess!'
-	        ),
-	        _react2.default.createElement(GameForm, null),
-	        _react2.default.createElement(GuessCountAndList, null)
-	      );
-	    }
-	  }]);
-	
-	  return Game;
-	}(_react2.default.Component);
+	// class Game extends React.Component{
+	//   constructor(props){
+	//     super(props);
+	//   }
+	//
+	//   componentWillMount(){
+	//     //this.props.dispatch(actions.newGame(this.props.secretNumber));
+	//   }
+	//   newGame(){
+	//     this.props.dispatch(actions.newGame());
+	//   }
+	//   render() {
+	//     return (
+	//       <div>
+	//         <Header />
+	//         <h2 id='feedback'>Make your Guess!</h2>
+	//         <GameForm />
+	//         <GuessCountAndList />
+	//       </div>
+	//     );
+	//   }
+	// }
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  _reactDom2.default.render(_react2.default.createElement(
-	    _reactRedux.Provider,
+	    Provider,
 	    { store: _store2.default },
-	    _react2.default.createElement(Game, null)
+	    _react2.default.createElement(_Game2.default, null)
 	  ), document.getElementById('app'));
 	});
 	
@@ -20488,14 +20498,194 @@
 
 	'use strict';
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(170);
+	
+	var _Header = __webpack_require__(169);
+	
+	var _Header2 = _interopRequireDefault(_Header);
+	
+	var _GameForm = __webpack_require__(193);
+	
+	var _GameForm2 = _interopRequireDefault(_GameForm);
+	
+	var _GuessCountAndList = __webpack_require__(194);
+	
+	var _GuessCountAndList2 = _interopRequireDefault(_GuessCountAndList);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Game = function (_React$Component) {
+	  _inherits(Game, _React$Component);
+	
+	  function Game(props) {
+	    _classCallCheck(this, Game);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Game).call(this, props));
+	  }
+	
+	  _createClass(Game, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      //this.props.dispatch(actions.newGame(this.props.secretNumber));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_Header2.default, null),
+	        _react2.default.createElement(
+	          'h2',
+	          { id: 'feedback' },
+	          'Make your Guess!'
+	        ),
+	        _react2.default.createElement(_GameForm2.default, null),
+	        _react2.default.createElement(_GuessCountAndList2.default, null)
+	      );
+	    }
+	  }]);
+	
+	  return Game;
+	}(_react2.default.Component);
+	
+	var mapStateToProps = function mapStateToProps(state, props) {
+	  return {
+	    guessArray: state.guessArray,
+	    guessCounter: state.guessCounter,
+	    userGuess: state.userGuess,
+	    feedback: state.feedback,
+	    isModalOpen: state.isModalOpen,
+	    secretNumber: state.secretNumber
+	  };
+	};
+	
+	var Container = (0, _reactRedux.connect)(mapStateToProps)(Game);
+	
+	module.exports = Container;
+
+/***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(170);
+	
+	var _actions = __webpack_require__(192);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//or maybe just var actions = require('../js/actions'); ?
+	
+	var Header = function (_React$Component) {
+	  _inherits(Header, _React$Component);
+	
+	  function Header() {
+	    _classCallCheck(this, Header);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this));
+	  }
+	
+	  _createClass(Header, [{
+	    key: 'newGame',
+	    value: function newGame() {}
+	
+	    // newGame(){
+	    //   console.log(this.props.dispatch, 'from Header');
+	    //   this.props.dispatch(actions.newGame());
+	    // }
+	
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'nav',
+	          null,
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'clearfix' },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'a',
+	                { className: 'what', href: '#' },
+	                'What ?'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'a',
+	                { className: 'new', href: '#' },
+	                '+ New Game'
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'HOT or COLD'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Header;
+	}(_react2.default.Component);
+	
+	var Container = (0, _reactRedux.connect)()(Header);
+	
+	exports.default = Container;
+
+/***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 	
-	var _Provider = __webpack_require__(169);
+	var _Provider = __webpack_require__(171);
 	
 	var _Provider2 = _interopRequireDefault(_Provider);
 	
-	var _connect = __webpack_require__(172);
+	var _connect = __webpack_require__(174);
 	
 	var _connect2 = _interopRequireDefault(_connect);
 	
@@ -20505,7 +20695,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 169 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20515,11 +20705,11 @@
 	
 	var _react = __webpack_require__(1);
 	
-	var _storeShape = __webpack_require__(170);
+	var _storeShape = __webpack_require__(172);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _warning = __webpack_require__(171);
+	var _warning = __webpack_require__(173);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -20589,7 +20779,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 170 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20605,7 +20795,7 @@
 	});
 
 /***/ },
-/* 171 */
+/* 173 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20634,7 +20824,7 @@
 	}
 
 /***/ },
-/* 172 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20646,31 +20836,31 @@
 	
 	var _react = __webpack_require__(1);
 	
-	var _storeShape = __webpack_require__(170);
+	var _storeShape = __webpack_require__(172);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _shallowEqual = __webpack_require__(173);
+	var _shallowEqual = __webpack_require__(175);
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 	
-	var _wrapActionCreators = __webpack_require__(174);
+	var _wrapActionCreators = __webpack_require__(176);
 	
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 	
-	var _warning = __webpack_require__(171);
+	var _warning = __webpack_require__(173);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _isPlainObject = __webpack_require__(177);
+	var _isPlainObject = __webpack_require__(179);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _hoistNonReactStatics = __webpack_require__(188);
+	var _hoistNonReactStatics = __webpack_require__(190);
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _invariant = __webpack_require__(189);
+	var _invariant = __webpack_require__(191);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -21033,7 +21223,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 173 */
+/* 175 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21064,7 +21254,7 @@
 	}
 
 /***/ },
-/* 174 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21072,7 +21262,7 @@
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 	
-	var _redux = __webpack_require__(175);
+	var _redux = __webpack_require__(177);
 	
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -21081,7 +21271,7 @@
 	}
 
 /***/ },
-/* 175 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -21089,27 +21279,27 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 	
-	var _createStore = __webpack_require__(176);
+	var _createStore = __webpack_require__(178);
 	
 	var _createStore2 = _interopRequireDefault(_createStore);
 	
-	var _combineReducers = __webpack_require__(183);
+	var _combineReducers = __webpack_require__(185);
 	
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 	
-	var _bindActionCreators = __webpack_require__(185);
+	var _bindActionCreators = __webpack_require__(187);
 	
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 	
-	var _applyMiddleware = __webpack_require__(186);
+	var _applyMiddleware = __webpack_require__(188);
 	
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 	
-	var _compose = __webpack_require__(187);
+	var _compose = __webpack_require__(189);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
-	var _warning = __webpack_require__(184);
+	var _warning = __webpack_require__(186);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -21133,7 +21323,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 176 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21142,11 +21332,11 @@
 	exports.ActionTypes = undefined;
 	exports["default"] = createStore;
 	
-	var _isPlainObject = __webpack_require__(177);
+	var _isPlainObject = __webpack_require__(179);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _symbolObservable = __webpack_require__(181);
+	var _symbolObservable = __webpack_require__(183);
 	
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 	
@@ -21400,12 +21590,12 @@
 	}
 
 /***/ },
-/* 177 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(178),
-	    isHostObject = __webpack_require__(179),
-	    isObjectLike = __webpack_require__(180);
+	var getPrototype = __webpack_require__(180),
+	    isHostObject = __webpack_require__(181),
+	    isObjectLike = __webpack_require__(182);
 	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -21476,7 +21666,7 @@
 
 
 /***/ },
-/* 178 */
+/* 180 */
 /***/ function(module, exports) {
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
@@ -21497,7 +21687,7 @@
 
 
 /***/ },
-/* 179 */
+/* 181 */
 /***/ function(module, exports) {
 
 	/**
@@ -21523,7 +21713,7 @@
 
 
 /***/ },
-/* 180 */
+/* 182 */
 /***/ function(module, exports) {
 
 	/**
@@ -21558,18 +21748,18 @@
 
 
 /***/ },
-/* 181 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
 	'use strict';
 	
-	module.exports = __webpack_require__(182)(global || window || this);
+	module.exports = __webpack_require__(184)(global || window || this);
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 182 */
+/* 184 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21594,7 +21784,7 @@
 
 
 /***/ },
-/* 183 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -21602,13 +21792,13 @@
 	exports.__esModule = true;
 	exports["default"] = combineReducers;
 	
-	var _createStore = __webpack_require__(176);
+	var _createStore = __webpack_require__(178);
 	
-	var _isPlainObject = __webpack_require__(177);
+	var _isPlainObject = __webpack_require__(179);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _warning = __webpack_require__(184);
+	var _warning = __webpack_require__(186);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -21727,7 +21917,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21757,7 +21947,7 @@
 	}
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21813,7 +22003,7 @@
 	}
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21824,7 +22014,7 @@
 	
 	exports["default"] = applyMiddleware;
 	
-	var _compose = __webpack_require__(187);
+	var _compose = __webpack_require__(189);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
@@ -21876,7 +22066,7 @@
 	}
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21921,7 +22111,7 @@
 	}
 
 /***/ },
-/* 188 */
+/* 190 */
 /***/ function(module, exports) {
 
 	/**
@@ -21977,7 +22167,7 @@
 
 
 /***/ },
-/* 189 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22035,188 +22225,513 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 190 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var redux = __webpack_require__(175);
-	var createStore = redux.createStore;
-	
-	var reducers = __webpack_require__(191);
-	
-	var store = createStore(reducers.gameReducer);
-	module.exports = store;
-
-/***/ },
-/* 191 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var actions = __webpack_require__(192);
-	
-	var gameState = {
-	  guessArray: [],
-	  guessCounter: gameState.guessArray.length,
-	  secretNumber: ''
-	};
-	// var secretNumber = '';
-	// var guessArray = [];
-	
-	var gameReducer = function gameReducer(state, action) {
-	  state = state || gameState;
-	
-	  //start the game - make sure guessCounter = 0, set secretNumber.
-	  if (action.type === actions.NEW_GAME) {
-	    //random number generator
-	    action.secretNumber = Math.floor(Math.random() * 100) + 1;
-	    //clear the guessArray to reset it and the counter.
-	    state.guessArray.length = 0;
-	    console.log('secretNumber ' + action.secretNumber, 'from NEW_GAME');
-	    return state.secretNumber;
-	  }
-	
-	  //play the game
-	  else if (action.type === actions.GUESS_NUMBER) {
-	      console.log('no. ' + action.number, 'from GUESS_NUMBER');
-	
-	      var feedback = document.getElementById('feedback').innerHTML;
-	
-	      //form validation
-	      if (isNaN(action.number) || action.number < 1 || action.number > 100) {
-	        console.log('Enter a number between 1 and 100');
-	      }
-	
-	      //check to see if the guess wins the game
-	      if (action.number === state.secretNumber) {
-	        feedback = 'YOU WIN!!!';
-	      } else {
-	        //play the game.
-	        var currentDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray.length]);
-	        var previousDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray - 1]);
-	
-	        if (currentDifference === previousDifference) {
-	          console.log('Please enter a different number');
-	        } else if (currentDifference > 50) {
-	          feedback = 'Very cold!';
-	        } else if (currentDifference <= 50 && currentDifference > 30) {
-	          feedback = 'Cold';
-	        } else if (currentDifference <= 30 && currentDifference > 10) {
-	          feedback = 'Hot';
-	        } else {
-	          feedback = 'Very hot!';
-	        }
-	      }
-	
-	      //concat the guess to the guessArray
-	      return state.guessArray.concat({
-	        number: action.number
-	      });
-	    }
-	    // else if (action.type === actions.guessButtonClick) {
-	    //   console.log('from GUESS_BUTTON_CLICK');
-	    //
-	    //
-	    // }
-	    else if (action.type === actions.OPEN_MODAL) {
-	        console.log('from OPEN_MODAL');
-	      } else if (action.type === actions.CLOSE_MODAL) {
-	        console.log('from CLOSE_MODAL');
-	      } else {
-	        console.log('Something went wrong.');
-	      }
-	  //return state at the end.
-	  return state;
-	};
-	
-	exports.gameReducer = gameReducer;
-	
-	//state = state || guessArray;
-	//   if (action.type === actions.GUESS_NUMBER){
-	//     console.log('no. ' + action.number, 'from GUESS_NUMBER');
-	//
-	// /*
-	// Logic to compare guess to secret number.
-	//   */
-	//     return state.concat({
-	//       number: action.number
-	//     });
-	//   }
-	// else if (action.type === actions.NEW_GAME){
-	//   //1 - empty the guessArray
-	//   //2 - Math.random.... to create/store newGame.secretNumber
-	//   //3 - compare newGame.secretNumber = Math.random....
-	//   console.log('from NEW_GAME');
-	// }
-
-	//1  - concat guess to guessArray;
-
-	//2 - compare last index of array to gameState.secretNumber
-	// 3- return comparison
-
-	// return state.concat({
-	//   number: action.number
-	// });
-
-/***/ },
 /* 192 */
 /***/ function(module, exports) {
 
 	'use strict';
 	
-	var GUESS_NUMBER = 'GUESS_NUMBER';
-	var guessNumber = function guessNumber(number) {
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	//actions/action creators (the functions) describe that something happened. But they don't actually do anything to state.
+	//thats the job of the reducers.
+	
+	var GUESS_NUMBER = exports.GUESS_NUMBER = 'GUESS_NUMBER';
+	var guessNumber = exports.guessNumber = function guessNumber(number) {
 	  return {
 	    type: GUESS_NUMBER,
 	    number: number
 	  };
 	};
 	
-	// var GUESS_BUTTON_CLICK = 'GUESS_BUTTON_CLICK';
-	// var guessButtonClick = function(numberOfGuesses){
-	//   type: GUESS_BUTTON_CLICK,
-	//   numberOfGuesses: numberOfGuesses
-	// }
-	
-	var NEW_GAME = 'NEW_GAME';
-	var newGame = function newGame(secretNumber) {
+	var NEW_GAME = exports.NEW_GAME = 'NEW_GAME';
+	var newGame = exports.newGame = function newGame() {
 	  return {
-	    type: NEW_GAME,
-	    secretNumber: secretNumber
+	    type: NEW_GAME
 	  };
 	};
 	
-	var OPEN_MODAL = 'OPEN_MODAL';
-	var openModal = function openModal() {
+	// var GUESS_BUTTON_CLICK = 'GUESS_BUTTON_CLICK';
+	// var guessButtonClick = function(guessCounter, feedback){
+	//   type: GUESS_BUTTON_CLICK,
+	//   guessCounter: guessCounter,
+	//   feedback: feedback
+	// }
+	
+	// export const NEW_GAME = 'NEW_GAME';
+	// export const newGame = function(secretNumber){
+	//   return {
+	//     type: NEW_GAME,
+	//     secretNumber: secretNumber
+	//   };
+	// };
+	
+	// export const MODAL_STATE = 'MODAL_STATE';
+	// export const modalState = function(){
+	//   type: MODAL_STATE
+	// }
+	
+	var OPEN_MODAL = exports.OPEN_MODAL = 'OPEN_MODAL';
+	var openModal = exports.openModal = function openModal() {
 	  return {
 	    type: OPEN_MODAL,
 	    show: true
 	  };
 	};
 	
-	var CLOSE_MODAL = 'CLOSE_MODAL';
-	var closeModal = function closeModal() {
+	var CLOSE_MODAL = exports.CLOSE_MODAL = 'CLOSE_MODAL';
+	var closeModal = exports.closeModal = function closeModal() {
 	  return {
 	    type: CLOSE_MODAL,
 	    show: false
 	  };
 	};
 	
-	exports.GUESS_NUMBER = GUESS_NUMBER;
-	exports.guessNumber = guessNumber;
-	
+	// exports.GUESS_NUMBER = GUESS_NUMBER;
+	// exports.guessNumber = guessNumber;
+
 	// exports.GUESS_BUTTON_CLICK;
 	// exports.guessButtonClick = guessButtonClick;
+
+	// exports.NEW_GAME = NEW_GAME;
+	// exports.newGame = newGame;
+	//
+	// exports.OPEN_MODAL = OPEN_MODAL;
+	// exports.openModal = openModal;
+	//
+	// exports.CLOSE_MODAL = CLOSE_MODAL;
+	// exports.closeModal = closeModal;
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	exports.NEW_GAME = NEW_GAME;
-	exports.newGame = newGame;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	exports.OPEN_MODAL = OPEN_MODAL;
-	exports.openModal = openModal;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	exports.CLOSE_MODAL = CLOSE_MODAL;
-	exports.closeModal = closeModal;
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(170);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var GameForm = function (_React$Component) {
+	  _inherits(GameForm, _React$Component);
+	
+	  function GameForm(props) {
+	    _classCallCheck(this, GameForm);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(GameForm).call(this, props));
+	  }
+	
+	  _createClass(GameForm, [{
+	    key: 'guessButtonClick',
+	    value: function guessButtonClick(evt) {
+	      evt.preventDefault();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          null,
+	          _react2.default.createElement('input', { type: 'text', name: 'userGuess', id: 'userGuess', className: 'text', maxLength: '3', autoComplete: 'off', placeholder: 'Enter your Guess' }),
+	          _react2.default.createElement('input', { type: 'submit', id: 'guessButton', className: 'button', name: 'submit', value: 'Guess' })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return GameForm;
+	}(_react2.default.Component);
+	
+	var Container = (0, _reactRedux.connect)()(GameForm);
+	exports.default = Container;
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(170);
+	
+	var _actions = __webpack_require__(192);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//the count will be the length of the guessArray
+	
+	var GuessCountAndList = function (_React$Component) {
+	  _inherits(GuessCountAndList, _React$Component);
+	
+	  function GuessCountAndList(props) {
+	    _classCallCheck(this, GuessCountAndList);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(GuessCountAndList).call(this, props));
+	  }
+	
+	  _createClass(GuessCountAndList, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Guess #',
+	          _react2.default.createElement(
+	            'span',
+	            { id: 'count' },
+	            '0'
+	          ),
+	          '!'
+	        ),
+	        _react2.default.createElement('ul', { id: 'guessList', className: 'guessBox clearfix' })
+	      );
+	    }
+	  }]);
+	
+	  return GuessCountAndList;
+	}(_react2.default.Component);
+	
+	var Container = (0, _reactRedux.connect)()(GuessCountAndList);
+	
+	exports.default = Container;
+
+/***/ },
+/* 195 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var redux = __webpack_require__(177);
+	var createStore = redux.createStore;
+	
+	var reducers = __webpack_require__(196);
+	
+	var store = createStore(reducers.gameReducer);
+	
+	module.exports = store;
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var actions = __webpack_require__(192);
+	
+	var secretNumber = Math.floor(Math.random() * 100) + 1;
+	
+	var gameState = [];
+	
+	var gameReducer = function gameReducer(state, action) {
+	  state = state || gameReducer;
+	  if (action.type === actions.NEW_GAME) {
+	    return state.concat({
+	      guessArray: [],
+	      guessCounter: 0,
+	      userGuess: '',
+	      feedback: '',
+	      isModalOpen: false,
+	      secretNumber: secretNumber
+	    });
+	  } else if (action.type === actions.GUESS_NUMBER) {
+	    var userGuess = action.number;
+	    console.log(secretNumber, 'from actions.GUESS_NUMBER');
+	    var feedback = hotOrCold(userGuess, secretNumber);
+	    var lastGameState = state[0];
+	    var currentCount = lastGameState.guessCounter + 1;
+	
+	    var guessState = Object.assign({}, lastGameState, {
+	      userGuess: userGuess,
+	      guessArray: guessArray.concat(userGuess),
+	      guessCounter: currentCount,
+	      feedback: feedback
+	    });
+	    return guessState;
+	  } else if (action.type === actions.OPEN_MODAL) {
+	    var isModalOpenTrue = actions.openModal;
+	    var lastGameState = state[0];
+	    var modalState = Object.assign({}, lastGameState, {
+	      isModalOpen: isModalOpenTrue
+	    });
+	    return modalState;
+	  } else if (action.type === actions.CLOSE_MODAL) {
+	    var isModalOpenFalse = actions.closeModal;
+	    var lastGameState = state[0];
+	    var modalState = Object.assign({}, lastGameState, {
+	      isModalOpen: isModalOpenFalse
+	    });
+	    return modalState;
+	  } else {
+	    console.log('I don\'t know that action');
+	  }
+	  return state;
+	};
+	
+	//logic for the game. returns feedback to the player.
+	function hotOrCold(userGuess, secretNumber) {
+	  var feedback = document.getElementById('feedback').innerHTML;
+	
+	  //form validation
+	  if (isNaN(action.number) || action.number < 1 || action.number > 100) {
+	    console.log('Enter a number between 1 and 100');
+	  }
+	  //check to see if the guess wins the game
+	  if (action.number === state.secretNumber) {
+	    feedback = 'YOU WIN!!!';
+	  } else {
+	    //play the game.
+	    var currentDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray.length]);
+	    var previousDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray - 1]);
+	
+	    if (currentDifference === previousDifference) {
+	      console.log('Please enter a different number');
+	    } else if (currentDifference > 50) {
+	      feedback = 'Very cold!';
+	    } else if (currentDifference <= 50 && currentDifference > 30) {
+	      feedback = 'Cold';
+	    } else if (currentDifference <= 30 && currentDifference > 10) {
+	      feedback = 'Hot';
+	    } else {
+	      feedback = 'Very hot!';
+	    }
+	  }
+	  return feedback;
+	};
+	
+	exports.gameReducer = gameReducer;
+	
+	// const gameState = [{
+	//   guessArray: [],
+	//   guessCounter: 0,
+	//   isModalOpen: false,
+	//   secretNumber: ''
+	// }]
+
+	// function gameReducer(state, action){
+	//   state = state || gameState;
+	//   // if (typeof state === 'undefined'){
+	//   //   return gameState;
+	//   // }
+	//   switch (action.type){
+	//     case NEW_GAME:
+	//       return state.concat({
+	//         guessArray: [],
+	//         guessCounter: 0,
+	//         isModalOpen: false,
+	//         secretNumber: action.secretNumber
+	//       });
+	//     case GUESS_NUMBER:
+	//
+	//       return state.concat({
+	//         guessArray: guess
+	//       });
+	//       // hotOrCold(userGuess, secretNumber);
+	//       //return state.guessCounter + 1;
+	//
+	//     case OPEN_MODAL:
+	//       return Object.assign({}, state, {
+	//         isModalOpen: true
+	//       });
+	//     case CLOSE_MODAL:
+	//       return Object.assign({}, state, {
+	//         isModalOpen: false
+	//       });
+	//     default:
+	//       return state;
+	//   }
+	//
+	// }
+	//
+	// //
+
+	// exports.gameReducer = gameReducer;
+
+	// var actions = require('./actions');
+	// //import { actions } from './actions';
+	//
+	// //const secretNumber = Math.floor(Math.random() * 100) + 1;
+	//
+	// const gameState = {
+	//   //secretNumber: Math.floor(Math.random() * 100) + 1,
+	//   guessArray: [],
+	//   guessCounter: null, //use guessArray.length as the guessCounter?
+	//   modalOpen: false
+	// }
+	//
+	// //trying to follow the pattern laid out in the redux docs.
+	// function gameReducer(state, action){
+	//   if (typeof state === 'undefined'){
+	//     return gameState;
+	//   }
+	//   switch (action.type){
+	//     case NEW_GAME:
+	//       return Object.assign({}, state, {
+	//         state.guessArray = [];
+	//         state.guessCounter = null;
+	//         state.modalOpen = false;
+	//       });
+	//   }
+	//     default:
+	//       return state;
+	// }
+	//
+	//
+	//
+	// // var gameState = {};
+	// // var gameState = {
+	// //   guessArray: [],
+	// //   //guessCounter: gameState.guessArray.length,
+	// //   secretNumber: ''
+	// // };
+	// // var secretNumber = '';
+	// // var guessArray = [];
+	//
+	//
+	//
+	//
+	//
+	// var gameReducer = function(state, action){
+	//   state = state || gameState;
+	//
+	//   //start the game - make sure guessCounter = 0, set secretNumber.
+	//   if (action.type === actions.NEW_GAME){
+	//     //maybe this should just reset the state.... It doesn't need to calculate anything. Just put everything back.
+	//
+	//     //random number generator
+	//     //this (calling Math.random()) should never occur in the reducer according to docs... So where does it go?
+	//     action.secretNumber = Math.floor(Math.random() * 100) + 1;
+	//     //clear the guessArray to reset it and the counter.
+	//     //state.guessArray.length = 0;
+	//     console.log('secretNumber ' + action.secretNumber, 'from NEW_GAME');
+	//     return state.secretNumber;
+	//   }
+	//
+	//   //play the game
+	//   else if (action.type === actions.GUESS_NUMBER){
+	//     console.log('no. ' + action.number, 'from GUESS_NUMBER');
+	//
+	//   //   var feedback = document.getElementById('feedback').innerHTML;
+	//   //
+	//   //   //form validation
+	//   //   if (isNaN(action.number) || (action.number < 1 || action.number > 100)){
+	//   //     console.log('Enter a number between 1 and 100');
+	//   //   }
+	//   //
+	//   //   //check to see if the guess wins the game
+	//   //   if (action.number === state.secretNumber) {
+	//   //     feedback = 'YOU WIN!!!';
+	//   //   }
+	//   //   else { //play the game.
+	//   //     var currentDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray.length]);
+	//   //     var previousDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray - 1]);
+	//   //
+	//   //     if (currentDifference === previousDifference) {
+	//   //       console.log('Please enter a different number');
+	//   //     }
+	//   //     else if (currentDifference > 50) {
+	//   //       feedback = 'Very cold!'
+	//   //     }
+	//   //     else if (currentDifference <= 50 && currentDifference > 30){
+	//   //       feedback = 'Cold';
+	//   //     }
+	//   //     else if (currentDifference <= 30 && currentDifference > 10) {
+	//   //       feedback = 'Hot';
+	//   //     }
+	//   //     else {
+	//   //       feedback = 'Very hot!';
+	//   //     }
+	//   //   }
+	//   //
+	//   //   //concat the guess to the guessArray
+	//   //   return state.guessArray.concat({
+	//   //     number: action.number
+	//   //   });
+	//   // }
+	//   // else if (action.type === actions.guessButtonClick) {
+	//   //   console.log('from GUESS_BUTTON_CLICK');
+	//   //
+	//   //
+	//    }
+	//   else if (action.type === actions.OPEN_MODAL) {
+	//     console.log('from OPEN_MODAL');
+	//   }
+	//   else if (action.type === actions.CLOSE_MODAL) {
+	//     console.log('from CLOSE_MODAL');
+	//   } else {
+	//     console.log('Something went wrong.');
+	//   }
+	//   //return state at the end.
+	//   return state;
+	// };
+	//
+	// exports.gameReducer = gameReducer;
+	//
+	//
+	// //state = state || guessArray;
+	// //   if (action.type === actions.GUESS_NUMBER){
+	// //     console.log('no. ' + action.number, 'from GUESS_NUMBER');
+	// //
+	// // /*
+	// // Logic to compare guess to secret number.
+	// //   */
+	// //     return state.concat({
+	// //       number: action.number
+	// //     });
+	// //   }
+	// // else if (action.type === actions.NEW_GAME){
+	// //   //1 - empty the guessArray
+	// //   //2 - Math.random.... to create/store newGame.secretNumber
+	// //   //3 - compare newGame.secretNumber = Math.random....
+	// //   console.log('from NEW_GAME');
+	// // }
+	//
+	// //1  - concat guess to guessArray;
+	//
+	//
+	// //2 - compare last index of array to gameState.secretNumber
+	// // 3- return comparison
+	//
+	//
+	// // return state.concat({
+	// //   number: action.number
+	// // });
 
 /***/ }
 /******/ ]);
