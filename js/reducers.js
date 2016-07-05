@@ -5,7 +5,7 @@ var secretNumber = Math.floor(Math.random() * 100) + 1;
 var gameState = [];
 
 var gameReducer = function(state, action){
-  state = state || gameReducer;
+  state = state || gameState;
   if (action.type === actions.NEW_GAME){
     return state.concat({
       guessArray: [],
@@ -87,7 +87,6 @@ function hotOrCold(userGuess, secretNumber){
   }
   return feedback;
 };
-
 
 exports.gameReducer = gameReducer;
 

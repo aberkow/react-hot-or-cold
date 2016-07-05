@@ -2,14 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 var Provider = require('react-redux').Provider;
 
+import store from './js/store';
 import Game from './components/Game';
 
 // import GameForm from './components/GameForm';
 // import GuessCountAndList from './components/GuessCountAndList';
 // import Header from './components/Header';
 
-import actions from './js/actions';
-import store from './js/store';
+//import actions from './js/actions';
+
 
 // class Provider extends React.Component{
 //   constructor(props){
