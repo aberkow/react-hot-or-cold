@@ -5,6 +5,16 @@ var Provider = require('react-redux').Provider;
 import store from './js/store';
 import Game from './components/Game';
 
+document.addEventListener('DOMContentLoaded', function(){
+  ReactDOM.render(
+    <Provider store={store}>
+      <Game />
+    </Provider>,
+    document.getElementById('app')
+  );
+});
+
+
 // import GameForm from './components/GameForm';
 // import GuessCountAndList from './components/GuessCountAndList';
 // import Header from './components/Header';
@@ -48,14 +58,6 @@ import Game from './components/Game';
 //   }
 // }
 
-document.addEventListener('DOMContentLoaded', function(){
-  ReactDOM.render(
-    <Provider store={store}>
-      <Game />
-    </Provider>,
-    document.getElementById('app')
-  );
-});
 
 
 // class Header extends React.Component{

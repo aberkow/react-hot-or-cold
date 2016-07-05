@@ -66,12 +66,20 @@
 	
 	var Provider = __webpack_require__(185).Provider;
 	
+	document.addEventListener('DOMContentLoaded', function () {
+	  _reactDom2.default.render(_react2.default.createElement(
+	    Provider,
+	    { store: _store2.default },
+	    _react2.default.createElement(_Game2.default, null)
+	  ), document.getElementById('app'));
+	});
+	
 	// import GameForm from './components/GameForm';
 	// import GuessCountAndList from './components/GuessCountAndList';
 	// import Header from './components/Header';
-	
+
 	//import actions from './js/actions';
-	
+
 	// class Provider extends React.Component{
 	//   constructor(props){
 	//     super(props);
@@ -82,9 +90,9 @@
 	//     );
 	//   }
 	// }
-	
+
 	// var secretNumber = Math.floor(Math.random() * 100) + 1;
-	
+
 	// class Game extends React.Component{
 	//   constructor(props){
 	//     super(props);
@@ -107,15 +115,7 @@
 	//     );
 	//   }
 	// }
-	
-	document.addEventListener('DOMContentLoaded', function () {
-	  _reactDom2.default.render(_react2.default.createElement(
-	    Provider,
-	    { store: _store2.default },
-	    _react2.default.createElement(_Game2.default, null)
-	  ), document.getElementById('app'));
-	});
-	
+
 	// class Header extends React.Component{
 	//   constructor(){
 	//     super();
@@ -21353,27 +21353,38 @@
 	
 	var actions = __webpack_require__(183);
 	
-	var secretNumber = Math.floor(Math.random() * 100) + 1;
+	// var secretNumber = Math.floor(Math.random() * 100) + 1;
 	
-	var gameState = [];
+	// var gameState = [];
+	
+	var initialGameState = {
+	  guessArray: [],
+	  guessCounter: 0,
+	  userGuess: '',
+	  feedback: '',
+	  isModalOpen: false
+	};
 	
 	var gameReducer = function gameReducer(state, action) {
-	  state = state || gameState;
+	  state = state || initialGameState;
 	  if (action.type === actions.NEW_GAME) {
-	    return state.concat({
-	      guessArray: [],
-	      guessCounter: 0,
-	      userGuess: '',
-	      feedback: '',
-	      isModalOpen: false,
-	      secretNumber: secretNumber
-	    });
+	    return Object.assign({}, state, initialGameState);
+	
+	    // return state.concat({
+	    // guessArray: [],
+	    // guessCounter: 0,
+	    // userGuess: '',
+	    // feedback: '',
+	    // isModalOpen: false,
+	    //secretNumber: secretNumber
+	    // });
 	  } else if (action.type === actions.GUESS_NUMBER) {
 	    var userGuess = action.number;
-	    console.log(secretNumber, 'from actions.GUESS_NUMBER');
-	    var feedback = hotOrCold(userGuess, secretNumber);
-	    var lastGameState = state[0];
-	    var currentCount = lastGameState.guessCounter + 1;
+	    console.log(userGuess, 'from actions.GUESS_NUMBER');
+	    // var feedback = hotOrCold(userGuess, secretNumber);
+	    // var lastGameState = state;
+	    // var currentCount = lastGameState.guessCounter + 1;
+	    var currentCount = state.guessCounter + 1;
 	
 	    var guessState = Object.assign({}, lastGameState, {
 	      userGuess: userGuess,
@@ -21381,11 +21392,12 @@
 	      guessCounter: currentCount,
 	      feedback: feedback
 	    });
+	    console.log(guessState, 'from actions.GUESS_NUMBER');
 	    return guessState;
 	  } else if (action.type === actions.OPEN_MODAL) {
 	    var isModalOpenTrue = actions.openModal;
-	    var lastGameState = state[0];
-	    var modalState = Object.assign({}, lastGameState, {
+	    //var lastGameState = state;
+	    var modalState = Object.assign({}, state, {
 	      isModalOpen: isModalOpenTrue
 	    });
 	    return modalState;
@@ -21764,11 +21776,6 @@
 	  }
 	
 	  _createClass(Game, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      //this.props.dispatch(actions.newGame(this.props.secretNumber));
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -21791,13 +21798,12 @@
 	
 	var mapStateToProps = function mapStateToProps(state, props) {
 	  return {
-	    currentGame: state
-	    // guessArray: state.guessArray,
-	    // guessCounter: state.guessCounter,
-	    // userGuess: state.userGuess,
-	    // feedback: state.feedback,
-	    // isModalOpen: state.isModalOpen,
-	    // secretNumber: state.secretNumber
+	    //currentGame: state
+	    guessArray: state.guessArray,
+	    guessCounter: state.guessCounter,
+	    userGuess: state.userGuess,
+	    feedback: state.feedback,
+	    isModalOpen: state.isModalOpen
 	  };
 	};
 	
@@ -22545,6 +22551,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var actions = __webpack_require__(183);
+	
 	//or maybe just var actions = require('../js/actions'); ?
 	
 	var Header = function (_React$Component) {
@@ -22553,13 +22561,20 @@
 	  function Header() {
 	    _classCallCheck(this, Header);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this));
+	
+	    _this.openModal = _this.openModal.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(Header, [{
 	    key: 'newGame',
 	    value: function newGame() {}
-	
+	  }, {
+	    key: 'openModal',
+	    value: function openModal() {
+	      this.props.dispatch(actions.openModal);
+	    }
 	    // newGame(){
 	    //   console.log(this.props.dispatch, 'from Header');
 	    //   this.props.dispatch(actions.newGame());
@@ -22582,7 +22597,7 @@
 	              null,
 	              _react2.default.createElement(
 	                'a',
-	                { className: 'what', href: '#' },
+	                { className: 'what', href: '#', onClick: this.openModal },
 	                'What ?'
 	              )
 	            ),
@@ -22639,6 +22654,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var actions = __webpack_require__(183);
+	
 	var GameForm = function (_React$Component) {
 	  _inherits(GameForm, _React$Component);
 	
@@ -22652,13 +22669,26 @@
 	  }
 	
 	  _createClass(GameForm, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      // this.props.dispatch(actions.newGame(this.props.secretNumber));
+	      var secretNumber = Math.floor(Math.random() * 100) + 1;
+	      console.log(secretNumber, 'from componentWillMount');
+	      this.props.dispatch(actions.newGame());
+	      //debugger;
+	      return secretNumber;
+	    }
+	  }, {
 	    key: 'submitGuess',
 	    value: function submitGuess(evt) {
 	      evt.preventDefault();
+	      var inputBox = evt.target.children[0];
 	      //get the value of the input box
 	      var userGuess = this.refs.userGuess.value;
+	      console.log(userGuess, 'from submitGuess');
 	      //pass userGuess into the guessNumber action.
 	      this.props.dispatch(actions.guessNumber(userGuess));
+	      inputBox.target.value = '';
 	    }
 	  }, {
 	    key: 'render',

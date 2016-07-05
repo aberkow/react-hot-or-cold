@@ -1,27 +1,38 @@
 var actions = require('./actions');
 
-var secretNumber = Math.floor(Math.random() * 100) + 1;
+// var secretNumber = Math.floor(Math.random() * 100) + 1;
 
-var gameState = [];
+// var gameState = [];
+
+var initialGameState = {
+  guessArray: [],
+  guessCounter: 0,
+  userGuess: '',
+  feedback: '',
+  isModalOpen: false,
+}
 
 var gameReducer = function(state, action){
-  state = state || gameState;
+  state = state || initialGameState;
   if (action.type === actions.NEW_GAME){
-    return state.concat({
-      guessArray: [],
-      guessCounter: 0,
-      userGuess: '',
-      feedback: '',
-      isModalOpen: false,
-      secretNumber: secretNumber
-    });
+    return Object.assign({}, state, initialGameState);
+
+    // return state.concat({
+      // guessArray: [],
+      // guessCounter: 0,
+      // userGuess: '',
+      // feedback: '',
+      // isModalOpen: false,
+      //secretNumber: secretNumber
+    // });
   }
   else if (action.type === actions.GUESS_NUMBER){
     var userGuess = action.number;
-    console.log(secretNumber, 'from actions.GUESS_NUMBER');
-    var feedback = hotOrCold(userGuess, secretNumber);
-    var lastGameState = state[0];
-    var currentCount = lastGameState.guessCounter + 1;
+    console.log(userGuess, 'from actions.GUESS_NUMBER');
+    // var feedback = hotOrCold(userGuess, secretNumber);
+    // var lastGameState = state;
+    // var currentCount = lastGameState.guessCounter + 1;
+    var currentCount = state.guessCounter + 1;
 
     var guessState = Object.assign({}, lastGameState, {
       userGuess: userGuess,
@@ -29,12 +40,13 @@ var gameReducer = function(state, action){
       guessCounter: currentCount,
       feedback: feedback
     });
+    console.log(guessState, 'from actions.GUESS_NUMBER');
     return guessState;
   }
   else if (action.type === actions.OPEN_MODAL){
     var isModalOpenTrue = actions.openModal;
-    var lastGameState = state[0];
-    var modalState = Object.assign({}, lastGameState, {
+    //var lastGameState = state;
+    var modalState = Object.assign({}, state, {
       isModalOpen: isModalOpenTrue
     });
     return modalState;
