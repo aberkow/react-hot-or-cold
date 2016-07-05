@@ -21361,6 +21361,7 @@
 	  guessArray: [],
 	  guessCounter: 0,
 	  userGuess: '',
+	  secretNumber: Math.floor(Math.random() * 100) + 1,
 	  feedback: '',
 	  isModalOpen: false
 	};
@@ -21776,6 +21777,11 @@
 	  }
 	
 	  _createClass(Game, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      console.log(this.props, 'from Game');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -21798,10 +21804,10 @@
 	
 	var mapStateToProps = function mapStateToProps(state, props) {
 	  return {
-	    //currentGame: state
 	    guessArray: state.guessArray,
 	    guessCounter: state.guessCounter,
 	    userGuess: state.userGuess,
+	    secretNumber: state.secretNumber,
 	    feedback: state.feedback,
 	    isModalOpen: state.isModalOpen
 	  };
@@ -22669,16 +22675,6 @@
 	  }
 	
 	  _createClass(GameForm, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      // this.props.dispatch(actions.newGame(this.props.secretNumber));
-	      var secretNumber = Math.floor(Math.random() * 100) + 1;
-	      console.log(secretNumber, 'from componentWillMount');
-	      this.props.dispatch(actions.newGame());
-	      //debugger;
-	      return secretNumber;
-	    }
-	  }, {
 	    key: 'submitGuess',
 	    value: function submitGuess(evt) {
 	      evt.preventDefault();

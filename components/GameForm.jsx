@@ -8,14 +8,7 @@ class GameForm extends React.Component{
     super(props);
     this.submitGuess = this.submitGuess.bind(this);
   }
-  componentWillMount(){
-    // this.props.dispatch(actions.newGame(this.props.secretNumber));
-    var secretNumber = Math.floor(Math.random() * 100 ) + 1;
-    console.log(secretNumber, 'from componentWillMount');
-    this.props.dispatch(actions.newGame());
-    //debugger;
-    return secretNumber;
-  }
+  
   submitGuess(evt){
     evt.preventDefault();
     var inputBox = evt.target.children[0];

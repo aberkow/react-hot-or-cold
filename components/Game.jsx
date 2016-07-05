@@ -21,7 +21,9 @@ class Game extends React.Component{
     super(props);
 
   }
-  
+  componentWillMount(){
+    console.log(this.props, 'from Game');
+  }
   render() {
     return (
       <div>
@@ -36,13 +38,12 @@ class Game extends React.Component{
 
 var mapStateToProps = function(state, props){
   return {
-    //currentGame: state
     guessArray: state.guessArray,
     guessCounter: state.guessCounter,
     userGuess: state.userGuess,
+    secretNumber: state.secretNumber,
     feedback: state.feedback,
     isModalOpen: state.isModalOpen,
-    //secretNumber: state.secretNumber
   };
 };
 

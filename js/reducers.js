@@ -8,6 +8,7 @@ var initialGameState = {
   guessArray: [],
   guessCounter: 0,
   userGuess: '',
+  secretNumber: Math.floor(Math.random() * 100 ) + 1,
   feedback: '',
   isModalOpen: false,
 }
