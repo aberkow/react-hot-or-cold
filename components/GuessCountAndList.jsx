@@ -10,9 +10,6 @@ class GuessCountAndList extends React.Component {
     super(props);
   }
 
-
-  //var guesses (inside render)= iterate through the guessArray from state using map? becomes {guesses}
-
   render(){
 
     var guesses = this.props.guessArray.map(function(guess, index){

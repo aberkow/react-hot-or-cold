@@ -22877,8 +22877,6 @@
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(GuessCountAndList).call(this, props));
 	  }
 	
-	  //var guesses (inside render)= iterate through the guessArray from state using map? becomes {guesses}
-	
 	  _createClass(GuessCountAndList, [{
 	    key: 'render',
 	    value: function render() {
