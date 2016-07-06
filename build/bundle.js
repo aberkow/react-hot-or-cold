@@ -21732,11 +21732,11 @@
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _GameForm = __webpack_require__(195);
+	var _GameForm = __webpack_require__(196);
 	
 	var _GameForm2 = _interopRequireDefault(_GameForm);
 	
-	var _GuessCountAndList = __webpack_require__(196);
+	var _GuessCountAndList = __webpack_require__(197);
 	
 	var _GuessCountAndList2 = _interopRequireDefault(_GuessCountAndList);
 	
@@ -22536,7 +22536,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(1);
-	var ModalBox = __webpack_require__(197);
+	var ModalBox = __webpack_require__(195);
 	var connect = __webpack_require__(185).connect;
 	var actions = __webpack_require__(183);
 	
@@ -22621,141 +22621,6 @@
 
 /***/ },
 /* 195 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var React = __webpack_require__(1);
-	var connect = __webpack_require__(185).connect;
-	var actions = __webpack_require__(183);
-	
-	var GameForm = function (_React$Component) {
-	  _inherits(GameForm, _React$Component);
-	
-	  function GameForm(props) {
-	    _classCallCheck(this, GameForm);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GameForm).call(this, props));
-	
-	    _this.submitGuess = _this.submitGuess.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(GameForm, [{
-	    key: 'submitGuess',
-	    value: function submitGuess(evt) {
-	      evt.preventDefault();
-	      //get the value of the input box
-	      var userGuess = this.refs.userGuess.value;
-	      //pass userGuess into the guessNumber action.
-	      this.props.dispatch(actions.guessNumber(userGuess));
-	      this.refs.userGuess.value = '';
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'form',
-	          { onSubmit: this.submitGuess },
-	          React.createElement('input', { ref: 'userGuess', type: 'text', name: 'userGuess', id: 'userGuess', className: 'text', maxLength: '3', autoComplete: 'off', placeholder: 'Enter your Guess' }),
-	          React.createElement('input', { type: 'submit', id: 'guessButton', className: 'button', name: 'submit', value: 'Guess' })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return GameForm;
-	}(React.Component);
-	
-	var Container = connect()(GameForm);
-	module.exports = Container;
-
-/***/ },
-/* 196 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(185);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var actions = __webpack_require__(183);
-	
-	// import Guess from './Guess';
-	
-	//the count will be the length of the guessArray
-	
-	var GuessCountAndList = function (_React$Component) {
-	  _inherits(GuessCountAndList, _React$Component);
-	
-	  function GuessCountAndList(props) {
-	    _classCallCheck(this, GuessCountAndList);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(GuessCountAndList).call(this, props));
-	  }
-	  //var guesses (inside render)= iterate through the guessArray from state using map? becomes {guesses}
-	
-	
-	  _createClass(GuessCountAndList, [{
-	    key: 'render',
-	    value: function render() {
-	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Guess #',
-	          _react2.default.createElement(
-	            'span',
-	            { id: 'count' },
-	            '0'
-	          ),
-	          '!'
-	        ),
-	        _react2.default.createElement('ul', { id: 'guessList', className: 'guessBox clearfix' })
-	      );
-	    }
-	  }]);
-	
-	  return GuessCountAndList;
-	}(_react2.default.Component);
-	
-	var Container = (0, _reactRedux.connect)()(GuessCountAndList);
-	
-	exports.default = Container;
-
-/***/ },
-/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22873,6 +22738,141 @@
 	var Container = connect()(ModalBox);
 	
 	module.exports = Container;
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var React = __webpack_require__(1);
+	var connect = __webpack_require__(185).connect;
+	var actions = __webpack_require__(183);
+	
+	var GameForm = function (_React$Component) {
+	  _inherits(GameForm, _React$Component);
+	
+	  function GameForm(props) {
+	    _classCallCheck(this, GameForm);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GameForm).call(this, props));
+	
+	    _this.submitGuess = _this.submitGuess.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(GameForm, [{
+	    key: 'submitGuess',
+	    value: function submitGuess(evt) {
+	      evt.preventDefault();
+	      //get the value of the input box
+	      var userGuess = this.refs.userGuess.value;
+	      //pass userGuess into the guessNumber action.
+	      this.props.dispatch(actions.guessNumber(userGuess));
+	      this.refs.userGuess.value = '';
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.submitGuess },
+	          React.createElement('input', { ref: 'userGuess', type: 'text', name: 'userGuess', id: 'userGuess', className: 'text', maxLength: '3', autoComplete: 'off', placeholder: 'Enter your Guess' }),
+	          React.createElement('input', { type: 'submit', id: 'guessButton', className: 'button', name: 'submit', value: 'Guess' })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return GameForm;
+	}(React.Component);
+	
+	var Container = connect()(GameForm);
+	module.exports = Container;
+
+/***/ },
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(185);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var actions = __webpack_require__(183);
+	
+	// import Guess from './Guess';
+	
+	//the count will be the length of the guessArray
+	
+	var GuessCountAndList = function (_React$Component) {
+	  _inherits(GuessCountAndList, _React$Component);
+	
+	  function GuessCountAndList(props) {
+	    _classCallCheck(this, GuessCountAndList);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(GuessCountAndList).call(this, props));
+	  }
+	  //var guesses (inside render)= iterate through the guessArray from state using map? becomes {guesses}
+	
+	
+	  _createClass(GuessCountAndList, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Guess #',
+	          _react2.default.createElement(
+	            'span',
+	            { id: 'count' },
+	            '0'
+	          ),
+	          '!'
+	        ),
+	        _react2.default.createElement('ul', { id: 'guessList', className: 'guessBox clearfix' })
+	      );
+	    }
+	  }]);
+	
+	  return GuessCountAndList;
+	}(_react2.default.Component);
+	
+	var Container = (0, _reactRedux.connect)()(GuessCountAndList);
+	
+	exports.default = Container;
 
 /***/ }
 /******/ ]);
