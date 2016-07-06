@@ -3,6 +3,7 @@ var createStore = redux.createStore;
 
 var reducers = require('./reducers');
 
-var store = createStore(reducers.gameReducer);
+//the second argument allows redux devtools to run.
+var store = createStore(reducers.gameReducer, window.devToolsExtension ? window.devToolsExtension() : undefined);
 
 module.exports = store;

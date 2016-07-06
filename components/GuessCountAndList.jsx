@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { guessNumber } from '../js/actions';
+var actions = require('../js/actions');
 
 // import Guess from './Guess';
 

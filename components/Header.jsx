@@ -1,35 +1,36 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { newGame } from '../js/actions';
-import { openModal } from '../js/actions';
+var React = require('react');
+var ModalBox = require('./ModalBox');
+var connect = require('react-redux').connect;
 var actions = require('../js/actions');
 
-//or maybe just var actions = require('../js/actions'); ?
-
 class Header extends React.Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.openModal = this.openModal.bind(this);
+    this.newGame = this.newGame.bind(this);
   }
+  //reset the game
   newGame(){
 
+    var secretNumber = Math.floor(Math.random() * 100) + 1;
+    this.props.dispatch(actions.newGame(secretNumber));
   }
+  //open the modal.
   openModal(){
-    this.props.dispatch(actions.openModal);
+    var modal = this.getElementsById('modal');
+    this.props.dispatch(actions.openModal());
   }
-  // newGame(){
-  //   console.log(this.props.dispatch, 'from Header');
-  //   this.props.dispatch(actions.newGame());
-  // }
+
   render(){
     return(
       <div>
         <nav>
           <ul className='clearfix'>
-            <li><a className='what' href='#' onClick={this.openModal}>What ?</a></li>
-            <li><a className='new' href='#'>+ New Game</a></li>
+            <li onClick={this.openModal}><a className='what' href='#' >What ?</a></li>
+            <li onClick={this.newGame}><a className='new' href='#'>+ New Game</a></li>
           </ul>
         </nav>
+        <ModalBox modalState={this.props.modalState} />
         <h1>HOT or COLD</h1>
       </div>
     );
@@ -38,4 +39,4 @@ class Header extends React.Component{
 
 var Container = connect()(Header);
 
-export default Container;
+module.exports = Container;

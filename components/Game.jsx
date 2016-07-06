@@ -14,7 +14,7 @@ import Header from './Header';
 import GameForm from './GameForm';
 import GuessCountAndList from './GuessCountAndList';
 
-import actions from '../js/actions';
+var actions = require('../js/actions');
 
 class Game extends React.Component{
   constructor(props){
@@ -27,7 +27,7 @@ class Game extends React.Component{
   render() {
     return (
       <div>
-        <Header />
+        <Header modalState={this.props.isModalOpen} />
         <h2 id='feedback'>Make your Guess!</h2>
         <GameForm />
         <GuessCountAndList />
@@ -46,6 +46,8 @@ var mapStateToProps = function(state, props){
     isModalOpen: state.isModalOpen,
   };
 };
+
+//var hotOrCold
 
 var Container = connect(mapStateToProps)(Game);
 

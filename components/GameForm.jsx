@@ -1,6 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
-
+var React = require('react');
+var connect = require('react-redux').connect;
 var actions = require('../js/actions');
 
 class GameForm extends React.Component{
@@ -8,18 +7,15 @@ class GameForm extends React.Component{
     super(props);
     this.submitGuess = this.submitGuess.bind(this);
   }
-  
+
   submitGuess(evt){
     evt.preventDefault();
-    var inputBox = evt.target.children[0];
     //get the value of the input box
     var userGuess = this.refs.userGuess.value;
-    console.log(userGuess, 'from submitGuess');
     //pass userGuess into the guessNumber action.
     this.props.dispatch(actions.guessNumber(userGuess));
-    inputBox.target.value = '';
+    this.refs.userGuess.value = '';
   }
-
 
   render(){
     return(
@@ -34,4 +30,4 @@ class GameForm extends React.Component{
 }
 
 var Container = connect()(GameForm);
-export default Container;
+module.exports = Container;

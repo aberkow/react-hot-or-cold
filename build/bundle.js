@@ -20501,7 +20501,8 @@
 	
 	var reducers = __webpack_require__(182);
 	
-	var store = createStore(reducers.gameReducer);
+	//the second argument allows redux devtools to run.
+	var store = createStore(reducers.gameReducer, window.devToolsExtension ? window.devToolsExtension() : undefined);
 	
 	module.exports = store;
 
@@ -21353,7 +21354,7 @@
 	
 	var actions = __webpack_require__(183);
 	
-	// var secretNumber = Math.floor(Math.random() * 100) + 1;
+	var secretNumber = Math.floor(Math.random() * 100) + 1;
 	
 	// var gameState = [];
 	
@@ -21361,30 +21362,27 @@
 	  guessArray: [],
 	  guessCounter: 0,
 	  userGuess: '',
-	  secretNumber: Math.floor(Math.random() * 100) + 1,
+	  secretNumber: secretNumber,
 	  feedback: '',
 	  isModalOpen: false
 	};
 	
+	//Math.floor(Math.random() * 100 ) + 1
+	
 	var gameReducer = function gameReducer(state, action) {
 	  state = state || initialGameState;
 	  if (action.type === actions.NEW_GAME) {
-	    return Object.assign({}, state, initialGameState);
-	
-	    // return state.concat({
-	    // guessArray: [],
-	    // guessCounter: 0,
-	    // userGuess: '',
-	    // feedback: '',
-	    // isModalOpen: false,
-	    //secretNumber: secretNumber
-	    // });
+	    console.log(state, 'from newGame reducer');
+	    return Object.assign({}, state, {
+	      secretNumber: action.secretNumber
+	    });
 	  } else if (action.type === actions.GUESS_NUMBER) {
 	    var userGuess = action.number;
 	    console.log(userGuess, 'from actions.GUESS_NUMBER');
 	    // var feedback = hotOrCold(userGuess, secretNumber);
 	    // var lastGameState = state;
 	    // var currentCount = lastGameState.guessCounter + 1;
+	    var guessArray = state.guessArray;
 	    var currentCount = state.guessCounter + 1;
 	
 	    var guessState = Object.assign({}, lastGameState, {
@@ -21396,17 +21394,13 @@
 	    console.log(guessState, 'from actions.GUESS_NUMBER');
 	    return guessState;
 	  } else if (action.type === actions.OPEN_MODAL) {
-	    var isModalOpenTrue = actions.openModal;
-	    //var lastGameState = state;
 	    var modalState = Object.assign({}, state, {
-	      isModalOpen: isModalOpenTrue
+	      isModalOpen: action.show
 	    });
 	    return modalState;
 	  } else if (action.type === actions.CLOSE_MODAL) {
-	    var isModalOpenFalse = actions.closeModal;
-	    var lastGameState = state[0];
-	    var modalState = Object.assign({}, lastGameState, {
-	      isModalOpen: isModalOpenFalse
+	    var modalState = Object.assign({}, state, {
+	      isModalOpen: action.show
 	    });
 	    return modalState;
 	  } else {
@@ -21650,26 +21644,52 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	//actions/action creators (the functions) describe that something happened. But they don't actually do anything to state.
 	//thats the job of the reducers.
 	
-	var GUESS_NUMBER = exports.GUESS_NUMBER = 'GUESS_NUMBER';
-	var guessNumber = exports.guessNumber = function guessNumber(number) {
+	var NEW_GAME = 'NEW_GAME';
+	var newGame = function newGame(secretNumber) {
+	  return {
+	    type: NEW_GAME,
+	    secretNumber: secretNumber
+	  };
+	};
+	
+	var GUESS_NUMBER = 'GUESS_NUMBER';
+	var guessNumber = function guessNumber(number) {
 	  return {
 	    type: GUESS_NUMBER,
 	    number: number
 	  };
 	};
 	
-	var NEW_GAME = exports.NEW_GAME = 'NEW_GAME';
-	var newGame = exports.newGame = function newGame() {
+	var OPEN_MODAL = 'OPEN_MODAL';
+	var openModal = function openModal() {
 	  return {
-	    type: NEW_GAME
+	    type: OPEN_MODAL,
+	    show: true
 	  };
 	};
+	
+	var CLOSE_MODAL = 'CLOSE_MODAL';
+	var closeModal = function closeModal() {
+	  return {
+	    type: CLOSE_MODAL,
+	    show: false
+	  };
+	};
+	
+	exports.NEW_GAME = NEW_GAME;
+	exports.newGame = newGame;
+	
+	exports.GUESS_NUMBER = GUESS_NUMBER;
+	exports.guessNumber = guessNumber;
+	
+	exports.OPEN_MODAL = OPEN_MODAL;
+	exports.openModal = openModal;
+	
+	exports.CLOSE_MODAL = CLOSE_MODAL;
+	exports.closeModal = closeModal;
 	
 	// var GUESS_BUTTON_CLICK = 'GUESS_BUTTON_CLICK';
 	// var guessButtonClick = function(guessCounter, feedback){
@@ -21677,7 +21697,7 @@
 	//   guessCounter: guessCounter,
 	//   feedback: feedback
 	// }
-	
+
 	// export const NEW_GAME = 'NEW_GAME';
 	// export const newGame = function(secretNumber){
 	//   return {
@@ -21685,42 +21705,14 @@
 	//     secretNumber: secretNumber
 	//   };
 	// };
-	
+
 	// export const MODAL_STATE = 'MODAL_STATE';
 	// export const modalState = function(){
 	//   type: MODAL_STATE
 	// }
-	
-	var OPEN_MODAL = exports.OPEN_MODAL = 'OPEN_MODAL';
-	var openModal = exports.openModal = function openModal() {
-	  return {
-	    type: OPEN_MODAL,
-	    show: true
-	  };
-	};
-	
-	var CLOSE_MODAL = exports.CLOSE_MODAL = 'CLOSE_MODAL';
-	var closeModal = exports.closeModal = function closeModal() {
-	  return {
-	    type: CLOSE_MODAL,
-	    show: false
-	  };
-	};
-	
-	// exports.GUESS_NUMBER = GUESS_NUMBER;
-	// exports.guessNumber = guessNumber;
 
 	// exports.GUESS_BUTTON_CLICK;
 	// exports.guessButtonClick = guessButtonClick;
-
-	// exports.NEW_GAME = NEW_GAME;
-	// exports.newGame = newGame;
-	//
-	// exports.OPEN_MODAL = OPEN_MODAL;
-	// exports.openModal = openModal;
-	//
-	// exports.CLOSE_MODAL = CLOSE_MODAL;
-	// exports.closeModal = closeModal;
 
 /***/ },
 /* 184 */
@@ -21748,10 +21740,6 @@
 	
 	var _GuessCountAndList2 = _interopRequireDefault(_GuessCountAndList);
 	
-	var _actions = __webpack_require__(183);
-	
-	var _actions2 = _interopRequireDefault(_actions);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21766,6 +21754,8 @@
 	// var GuessCountAndList = require('./GuessCountAndList');
 	//
 	// var actions = require('../js/actions');
+	
+	var actions = __webpack_require__(183);
 	
 	var Game = function (_React$Component) {
 	  _inherits(Game, _React$Component);
@@ -21787,7 +21777,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Header2.default, null),
+	        _react2.default.createElement(_Header2.default, { modalState: this.props.isModalOpen }),
 	        _react2.default.createElement(
 	          'h2',
 	          { id: 'feedback' },
@@ -21812,6 +21802,8 @@
 	    isModalOpen: state.isModalOpen
 	  };
 	};
+	
+	//var hotOrCold
 	
 	var Container = (0, _reactRedux.connect)(mapStateToProps)(Game);
 	
@@ -22535,21 +22527,7 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(185);
-	
-	var _actions = __webpack_require__(183);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -22557,60 +22535,66 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var React = __webpack_require__(1);
+	var ModalBox = __webpack_require__(197);
+	var connect = __webpack_require__(185).connect;
 	var actions = __webpack_require__(183);
-	
-	//or maybe just var actions = require('../js/actions'); ?
 	
 	var Header = function (_React$Component) {
 	  _inherits(Header, _React$Component);
 	
-	  function Header() {
+	  function Header(props) {
 	    _classCallCheck(this, Header);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
 	
 	    _this.openModal = _this.openModal.bind(_this);
+	    _this.newGame = _this.newGame.bind(_this);
 	    return _this;
 	  }
+	  //reset the game
+	
 	
 	  _createClass(Header, [{
 	    key: 'newGame',
-	    value: function newGame() {}
+	    value: function newGame() {
+	
+	      var secretNumber = Math.floor(Math.random() * 100) + 1;
+	      this.props.dispatch(actions.newGame(secretNumber));
+	    }
+	    //open the modal.
+	
 	  }, {
 	    key: 'openModal',
 	    value: function openModal() {
-	      this.props.dispatch(actions.openModal);
+	      var modal = this.getElementsById('modal');
+	      this.props.dispatch(actions.openModal());
 	    }
-	    // newGame(){
-	    //   console.log(this.props.dispatch, 'from Header');
-	    //   this.props.dispatch(actions.newGame());
-	    // }
-	
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
+	      return React.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
+	        React.createElement(
 	          'nav',
 	          null,
-	          _react2.default.createElement(
+	          React.createElement(
 	            'ul',
 	            { className: 'clearfix' },
-	            _react2.default.createElement(
+	            React.createElement(
 	              'li',
-	              null,
-	              _react2.default.createElement(
+	              { onClick: this.openModal },
+	              React.createElement(
 	                'a',
-	                { className: 'what', href: '#', onClick: this.openModal },
+	                { className: 'what', href: '#' },
 	                'What ?'
 	              )
 	            ),
-	            _react2.default.createElement(
+	            React.createElement(
 	              'li',
-	              null,
-	              _react2.default.createElement(
+	              { onClick: this.newGame },
+	              React.createElement(
 	                'a',
 	                { className: 'new', href: '#' },
 	                '+ New Game'
@@ -22618,7 +22602,8 @@
 	            )
 	          )
 	        ),
-	        _react2.default.createElement(
+	        React.createElement(ModalBox, { modalState: this.props.modalState }),
+	        React.createElement(
 	          'h1',
 	          null,
 	          'HOT or COLD'
@@ -22628,11 +22613,11 @@
 	  }]);
 	
 	  return Header;
-	}(_react2.default.Component);
+	}(React.Component);
 	
-	var Container = (0, _reactRedux.connect)()(Header);
+	var Container = connect()(Header);
 	
-	exports.default = Container;
+	module.exports = Container;
 
 /***/ },
 /* 195 */
@@ -22640,19 +22625,7 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(185);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -22660,6 +22633,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var React = __webpack_require__(1);
+	var connect = __webpack_require__(185).connect;
 	var actions = __webpack_require__(183);
 	
 	var GameForm = function (_React$Component) {
@@ -22678,35 +22653,33 @@
 	    key: 'submitGuess',
 	    value: function submitGuess(evt) {
 	      evt.preventDefault();
-	      var inputBox = evt.target.children[0];
 	      //get the value of the input box
 	      var userGuess = this.refs.userGuess.value;
-	      console.log(userGuess, 'from submitGuess');
 	      //pass userGuess into the guessNumber action.
 	      this.props.dispatch(actions.guessNumber(userGuess));
-	      inputBox.target.value = '';
+	      this.refs.userGuess.value = '';
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
+	      return React.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
+	        React.createElement(
 	          'form',
 	          { onSubmit: this.submitGuess },
-	          _react2.default.createElement('input', { ref: 'userGuess', type: 'text', name: 'userGuess', id: 'userGuess', className: 'text', maxLength: '3', autoComplete: 'off', placeholder: 'Enter your Guess' }),
-	          _react2.default.createElement('input', { type: 'submit', id: 'guessButton', className: 'button', name: 'submit', value: 'Guess' })
+	          React.createElement('input', { ref: 'userGuess', type: 'text', name: 'userGuess', id: 'userGuess', className: 'text', maxLength: '3', autoComplete: 'off', placeholder: 'Enter your Guess' }),
+	          React.createElement('input', { type: 'submit', id: 'guessButton', className: 'button', name: 'submit', value: 'Guess' })
 	        )
 	      );
 	    }
 	  }]);
 	
 	  return GameForm;
-	}(_react2.default.Component);
+	}(React.Component);
 	
-	var Container = (0, _reactRedux.connect)()(GameForm);
-	exports.default = Container;
+	var Container = connect()(GameForm);
+	module.exports = Container;
 
 /***/ },
 /* 196 */
@@ -22726,8 +22699,6 @@
 	
 	var _reactRedux = __webpack_require__(185);
 	
-	var _actions = __webpack_require__(183);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22735,6 +22706,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var actions = __webpack_require__(183);
 	
 	// import Guess from './Guess';
 	
@@ -22780,6 +22753,126 @@
 	var Container = (0, _reactRedux.connect)()(GuessCountAndList);
 	
 	exports.default = Container;
+
+/***/ },
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var React = __webpack_require__(1);
+	var connect = __webpack_require__(185).connect;
+	var closeModal = __webpack_require__(183);
+	
+	//add function to show/hide the modal a la jquery show/hide
+	
+	var ModalBox = function (_React$Component) {
+	  _inherits(ModalBox, _React$Component);
+	
+	  function ModalBox(props) {
+	    _classCallCheck(this, ModalBox);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ModalBox).call(this, props));
+	
+	    console.log(props, 'from ModalBox');
+	    _this.closeModal = _this.closeModal.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(ModalBox, [{
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.props.dispatch(actions.closeModal());
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: 'overlay', id: 'modal' },
+	        React.createElement(
+	          'div',
+	          { className: 'content' },
+	          React.createElement(
+	            'h3',
+	            null,
+	            'What do I do?'
+	          ),
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'p',
+	              null,
+	              'This is a Hot or Cold Number Guessing Game. The game goes like this: '
+	            ),
+	            React.createElement(
+	              'ul',
+	              null,
+	              React.createElement(
+	                'li',
+	                null,
+	                '1. I pick a ',
+	                React.createElement(
+	                  'strong',
+	                  null,
+	                  'random secret number'
+	                ),
+	                ' between 1 to 100 and keep it hidden.'
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                '2. You need to ',
+	                React.createElement(
+	                  'strong',
+	                  null,
+	                  'guess'
+	                ),
+	                ' until you can find the hidden secret number.'
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                '3. You will ',
+	                React.createElement(
+	                  'strong',
+	                  null,
+	                  'get feedback'
+	                ),
+	                ' on how close ("hot") or far ("cold") your guess is.'
+	              )
+	            ),
+	            React.createElement(
+	              'p',
+	              null,
+	              'So, Are you ready?'
+	            ),
+	            React.createElement(
+	              'a',
+	              { onClick: this.closeModal, 'class': 'close', href: '#' },
+	              'Got It!'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return ModalBox;
+	}(React.Component);
+	
+	var Container = connect()(ModalBox);
+	
+	module.exports = Container;
 
 /***/ }
 /******/ ]);

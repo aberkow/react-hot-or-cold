@@ -1,12 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { closeModal } from '../js/actions';
+var React = require('react');
+var connect = require('react-redux').connect;
+var closeModal = require('../js/actions');
 
-
+//add function to show/hide the modal a la jquery show/hide
 class ModalBox extends React.Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+    console.log(props, 'from ModalBox');
+    this.closeModal = this.closeModal.bind(this);
   }
+  closeModal(){
+    this.props.dispatch(actions.closeModal());
+  }
+
   render(){
     return(
       <div className='overlay' id='modal'>
@@ -20,7 +26,7 @@ class ModalBox extends React.Component{
 							<li>3. You will <strong>get feedback</strong> on how close ("hot") or far ("cold") your guess is.</li>
 						</ul>
 						<p>So, Are you ready?</p>
-						<a class="close" href="#">Got It!</a>
+						<a onClick={this.closeModal} class="close" href="#">Got It!</a>
           </div>
         </div>
       </div>
@@ -30,4 +36,4 @@ class ModalBox extends React.Component{
 
 var Container = connect()(ModalBox);
 
-export default Container;
+module.exports = Container;
