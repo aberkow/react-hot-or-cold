@@ -21679,6 +21679,14 @@
 	  };
 	};
 	
+	// var TOGGLE_MODAL = 'TOGGLE_MODAL';
+	// var toggleModal = function(displayStyle){
+	//   return {
+	//     type: TOGGLE_MODAL,
+	//     displayStyle: displayStyle
+	//   };
+	// };
+	
 	exports.NEW_GAME = NEW_GAME;
 	exports.newGame = newGame;
 	
@@ -21691,6 +21699,9 @@
 	exports.CLOSE_MODAL = CLOSE_MODAL;
 	exports.closeModal = closeModal;
 	
+	// exports.TOGGLE_MODAL = TOGGLE_MODAL;
+	// exports.toggleModal = toggleModal;
+
 	// var GUESS_BUTTON_CLICK = 'GUESS_BUTTON_CLICK';
 	// var guessButtonClick = function(guessCounter, feedback){
 	//   type: GUESS_BUTTON_CLICK,
@@ -22548,6 +22559,7 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
 	
+	    console.log(props, 'from Header');
 	    _this.openModal = _this.openModal.bind(_this);
 	    _this.newGame = _this.newGame.bind(_this);
 	    return _this;
@@ -22567,7 +22579,10 @@
 	  }, {
 	    key: 'openModal',
 	    value: function openModal() {
-	      var modal = this.getElementsById('modal');
+	      var modal = document.getElementById('modal');
+	      if (this.props.modalState === false) {
+	        modal.style.display = 'block';
+	      }
 	      this.props.dispatch(actions.openModal());
 	    }
 	  }, {
@@ -22770,7 +22785,7 @@
 	
 	var React = __webpack_require__(1);
 	var connect = __webpack_require__(185).connect;
-	var closeModal = __webpack_require__(183);
+	var actions = __webpack_require__(183);
 	
 	//add function to show/hide the modal a la jquery show/hide
 	
@@ -22790,6 +22805,10 @@
 	  _createClass(ModalBox, [{
 	    key: 'closeModal',
 	    value: function closeModal() {
+	      var modal = document.getElementById('modal');
+	      if (this.props.modalState === true) {
+	        modal.style.display = 'none';
+	      }
 	      this.props.dispatch(actions.closeModal());
 	    }
 	  }, {

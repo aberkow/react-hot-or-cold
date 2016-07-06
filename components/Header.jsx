@@ -6,6 +6,7 @@ var actions = require('../js/actions');
 class Header extends React.Component{
   constructor(props){
     super(props);
+    console.log(props, 'from Header');
     this.openModal = this.openModal.bind(this);
     this.newGame = this.newGame.bind(this);
   }
@@ -17,7 +18,10 @@ class Header extends React.Component{
   }
   //open the modal.
   openModal(){
-    var modal = this.getElementsById('modal');
+    var modal = document.getElementById('modal');
+    if (this.props.modalState === false){
+      modal.style.display = 'block';
+    }
     this.props.dispatch(actions.openModal());
   }
 

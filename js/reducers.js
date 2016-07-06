@@ -10,7 +10,7 @@ var initialGameState = {
   userGuess: '',
   secretNumber: secretNumber,
   feedback: '',
-  isModalOpen: false,
+  isModalOpen: false
 };
 
 //Math.floor(Math.random() * 100 ) + 1
