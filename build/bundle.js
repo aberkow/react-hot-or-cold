@@ -21358,10 +21358,9 @@
 	
 	var initialGameState = {
 	  guessArray: [],
-	  guessCounter: 0,
 	  userGuess: '',
 	  secretNumber: secretNumber,
-	  feedback: '',
+	  feedback: 'Make your Guess!',
 	  isModalOpen: false
 	};
 	
@@ -21374,17 +21373,15 @@
 	    });
 	  } else if (action.type === actions.GUESS_NUMBER) {
 	    var userGuess = action.number;
-	    console.log(userGuess, 'from actions.GUESS_NUMBER');
-	    // var feedback = hotOrCold(userGuess, secretNumber);
-	    // var lastGameState = state;
-	    // var currentCount = lastGameState.guessCounter + 1;
+	    var secretNumber = state.secretNumber;
 	    var guessArray = state.guessArray;
-	    var currentCount = state.guessCounter + 1;
 	
-	    var guessState = Object.assign({}, lastGameState, {
+	    console.log(userGuess, 'from actions.GUESS_NUMBER');
+	    var feedback = hotOrCold(userGuess, secretNumber, guessArray);
+	
+	    var guessState = Object.assign({}, state, {
 	      userGuess: userGuess,
 	      guessArray: guessArray.concat(userGuess),
-	      guessCounter: currentCount,
 	      feedback: feedback
 	    });
 	    console.log(guessState, 'from actions.GUESS_NUMBER');
@@ -21406,20 +21403,20 @@
 	};
 	
 	//logic for the game. returns feedback to the player.
-	function hotOrCold(userGuess, secretNumber) {
+	function hotOrCold(userGuess, secretNumber, guessArray) {
 	  var feedback = document.getElementById('feedback').innerHTML;
 	
 	  //form validation
-	  if (isNaN(action.number) || action.number < 1 || action.number > 100) {
+	  if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
 	    console.log('Enter a number between 1 and 100');
 	  }
 	  //check to see if the guess wins the game
-	  if (action.number === state.secretNumber) {
+	  if (userGuess === secretNumber) {
 	    feedback = 'YOU WIN!!!';
 	  } else {
 	    //play the game.
-	    var currentDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray.length]);
-	    var previousDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray - 1]);
+	    var currentDifference = Math.abs(secretNumber - guessArray[guessArray.length]);
+	    var previousDifference = Math.abs(secretNumber - guessArray[guessArray.length - 1]);
 	
 	    if (currentDifference === previousDifference) {
 	      console.log('Please enter a different number');
@@ -21479,6 +21476,14 @@
 	  };
 	};
 	
+	// var TOGGLE_MODAL = 'TOGGLE_MODAL';
+	// var toggleModal = function(displayStyle){
+	//   return {
+	//     type: TOGGLE_MODAL,
+	//     displayStyle: displayStyle
+	//   };
+	// };
+	
 	exports.NEW_GAME = NEW_GAME;
 	exports.newGame = newGame;
 	
@@ -21491,6 +21496,9 @@
 	exports.CLOSE_MODAL = CLOSE_MODAL;
 	exports.closeModal = closeModal;
 	
+	// exports.TOGGLE_MODAL = TOGGLE_MODAL;
+	// exports.toggleModal = toggleModal;
+
 	// var GUESS_BUTTON_CLICK = 'GUESS_BUTTON_CLICK';
 	// var guessButtonClick = function(guessCounter, feedback){
 	//   type: GUESS_BUTTON_CLICK,
@@ -21546,14 +21554,7 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // var React = require('react');
-	// var connect = require('react-redux').connect;
-	//
-	// var Header = require('./Header');
-	// var GameForm = require('./GameForm');
-	// var GuessCountAndList = require('./GuessCountAndList');
-	//
-	// var actions = require('../js/actions');
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var actions = __webpack_require__(183);
 	
@@ -21570,6 +21571,7 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      console.log(this.props, 'from Game');
+	      console.log(this.props.guessArray, 'from Game');
 	    }
 	  }, {
 	    key: 'render',
@@ -21581,10 +21583,10 @@
 	        _react2.default.createElement(
 	          'h2',
 	          { id: 'feedback' },
-	          'Make your Guess!'
+	          this.props.feedback
 	        ),
 	        _react2.default.createElement(_GameForm2.default, null),
-	        _react2.default.createElement(_GuessCountAndList2.default, null)
+	        _react2.default.createElement(_GuessCountAndList2.default, { guessArray: this.props.guessArray })
 	      );
 	    }
 	  }]);
@@ -21603,11 +21605,43 @@
 	  };
 	};
 	
-	//var hotOrCold
-	
 	var Container = (0, _reactRedux.connect)(mapStateToProps)(Game);
 	
 	module.exports = Container;
+	
+	// var hotOrCold = function(userGuess, secretNumber){
+	//   var feedback = document.getElementById('feedback').innerHTML;
+	//
+	//   //form validation
+	//   if (isNaN(action.number) || (action.number < 1 || action.number > 100)){
+	//     console.log('Enter a number between 1 and 100');
+	//   }
+	//   //check to see if the guess wins the game
+	//   if (action.number === state.secretNumber) {
+	//     feedback = 'YOU WIN!!!';
+	//   }
+	//   else { //play the game.
+	//     let currentDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray.length]);
+	//     let previousDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray - 1]);
+	//
+	//     if (currentDifference === previousDifference) {
+	//       console.log('Please enter a different number');
+	//     }
+	//     else if (currentDifference > 50) {
+	//       feedback = 'Very cold!';
+	//     }
+	//     else if (currentDifference <= 50 && currentDifference > 30){
+	//       feedback = 'Cold';
+	//     }
+	//     else if (currentDifference <= 30 && currentDifference > 10) {
+	//       feedback = 'Hot';
+	//     }
+	//     else {
+	//       feedback = 'Very hot!';
+	//     }
+	//   }
+	//   return feedback;
+	// }
 
 /***/ },
 /* 185 */
@@ -22358,7 +22392,6 @@
 	  _createClass(Header, [{
 	    key: 'newGame',
 	    value: function newGame() {
-	
 	      var secretNumber = Math.floor(Math.random() * 100) + 1;
 	      this.props.dispatch(actions.newGame(secretNumber));
 	    }
@@ -22367,7 +22400,10 @@
 	  }, {
 	    key: 'openModal',
 	    value: function openModal() {
-	      var modal = this.getElementsById('modal');
+	      var modal = document.getElementById('modal');
+	      if (this.props.modalState === false) {
+	        modal.style.display = 'block';
+	      }
 	      this.props.dispatch(actions.openModal());
 	    }
 	  }, {
@@ -22435,7 +22471,7 @@
 	
 	var React = __webpack_require__(1);
 	var connect = __webpack_require__(185).connect;
-	var closeModal = __webpack_require__(183);
+	var actions = __webpack_require__(183);
 	
 	//add function to show/hide the modal a la jquery show/hide
 	
@@ -22447,7 +22483,6 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ModalBox).call(this, props));
 	
-	    console.log(props, 'from ModalBox');
 	    _this.closeModal = _this.closeModal.bind(_this);
 	    return _this;
 	  }
@@ -22455,6 +22490,10 @@
 	  _createClass(ModalBox, [{
 	    key: 'closeModal',
 	    value: function closeModal() {
+	      var modal = document.getElementById('modal');
+	      if (this.props.modalState === true) {
+	        modal.style.display = 'none';
+	      }
 	      this.props.dispatch(actions.closeModal());
 	    }
 	  }, {
@@ -22641,13 +22680,18 @@
 	
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(GuessCountAndList).call(this, props));
 	  }
-	  //var guesses (inside render)= iterate through the guessArray from state using map? becomes {guesses}
-	
 	
 	  _createClass(GuessCountAndList, [{
 	    key: 'render',
 	    value: function render() {
 	
+	      var guesses = this.props.guessArray.map(function (guess, index) {
+	        return _react2.default.createElement(
+	          'li',
+	          { key: index },
+	          guess
+	        );
+	      });
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -22658,11 +22702,15 @@
 	          _react2.default.createElement(
 	            'span',
 	            { id: 'count' },
-	            '0'
+	            this.props.guessArray.length
 	          ),
 	          '!'
 	        ),
-	        _react2.default.createElement('ul', { id: 'guessList', className: 'guessBox clearfix' })
+	        _react2.default.createElement(
+	          'ul',
+	          { id: 'guessList', className: 'guessBox clearfix' },
+	          guesses
+	        )
 	      );
 	    }
 	  }]);

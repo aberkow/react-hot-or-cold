@@ -33,6 +33,14 @@ var closeModal = function(){
   };
 };
 
+// var TOGGLE_MODAL = 'TOGGLE_MODAL';
+// var toggleModal = function(displayStyle){
+//   return {
+//     type: TOGGLE_MODAL,
+//     displayStyle: displayStyle
+//   };
+// };
+
 exports.NEW_GAME = NEW_GAME;
 exports.newGame = newGame;
 
@@ -44,6 +52,9 @@ exports.openModal = openModal;
 
 exports.CLOSE_MODAL = CLOSE_MODAL;
 exports.closeModal = closeModal;
+
+// exports.TOGGLE_MODAL = TOGGLE_MODAL;
+// exports.toggleModal = toggleModal;
 
 
 

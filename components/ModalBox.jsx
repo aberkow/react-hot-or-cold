@@ -1,18 +1,22 @@
 var React = require('react');
 var connect = require('react-redux').connect;
-var closeModal = require('../js/actions');
+var actions = require('../js/actions');
+
+
 
 //add function to show/hide the modal a la jquery show/hide
 class ModalBox extends React.Component{
   constructor(props){
     super(props);
-    console.log(props, 'from ModalBox');
     this.closeModal = this.closeModal.bind(this);
   }
   closeModal(){
+    var modal = document.getElementById('modal');
+    if (this.props.modalState === true){
+      modal.style.display = 'none';
+    }
     this.props.dispatch(actions.closeModal());
   }
-
   render(){
     return(
       <div className='overlay' id='modal'>

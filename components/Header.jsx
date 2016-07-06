@@ -11,16 +11,17 @@ class Header extends React.Component{
   }
   //reset the game
   newGame(){
-
     var secretNumber = Math.floor(Math.random() * 100) + 1;
     this.props.dispatch(actions.newGame(secretNumber));
   }
   //open the modal.
   openModal(){
-    var modal = this.getElementsById('modal');
+    var modal = document.getElementById('modal');
+    if (this.props.modalState === false){
+      modal.style.display = 'block';
+    }
     this.props.dispatch(actions.openModal());
   }
-
   render(){
     return(
       <div>

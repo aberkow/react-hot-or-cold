@@ -9,15 +9,19 @@ class GuessCountAndList extends React.Component {
   constructor(props){
     super(props);
   }
-  //var guesses (inside render)= iterate through the guessArray from state using map? becomes {guesses}
+
   render(){
 
-
+    var guesses = this.props.guessArray.map(function(guess, index){
+      return(
+          <li key={index}>{guess}</li>
+      );
+    });
     return(
       <div>
-        <p>Guess #<span id='count'>0</span>!</p>
+        <p>Guess #<span id='count'>{this.props.guessArray.length}</span>!</p>
         <ul id='guessList' className='guessBox clearfix'>
-
+          {guesses}
         </ul>
       </div>
     );
