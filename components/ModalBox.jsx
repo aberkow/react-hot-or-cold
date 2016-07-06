@@ -8,7 +8,6 @@ var actions = require('../js/actions');
 class ModalBox extends React.Component{
   constructor(props){
     super(props);
-    console.log(props, 'from ModalBox');
     this.closeModal = this.closeModal.bind(this);
   }
   closeModal(){

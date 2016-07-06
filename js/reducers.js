@@ -2,18 +2,13 @@ var actions = require('./actions');
 
 var secretNumber = Math.floor(Math.random() * 100) + 1;
 
-// var gameState = [];
-
 var initialGameState = {
   guessArray: [],
-  guessCounter: 0,
   userGuess: '',
   secretNumber: secretNumber,
-  feedback: '',
+  feedback: 'Make your Guess!',
   isModalOpen: false
 };
-
-//Math.floor(Math.random() * 100 ) + 1
 
 var gameReducer = function(state, action){
   state = state || initialGameState;
@@ -25,17 +20,15 @@ var gameReducer = function(state, action){
   }
   else if (action.type === actions.GUESS_NUMBER){
     var userGuess = action.number;
-    console.log(userGuess, 'from actions.GUESS_NUMBER');
-    // var feedback = hotOrCold(userGuess, secretNumber);
-    // var lastGameState = state;
-    // var currentCount = lastGameState.guessCounter + 1;
+    var secretNumber = state.secretNumber;
     var guessArray = state.guessArray;
-    var currentCount = state.guessCounter + 1;
 
-    var guessState = Object.assign({}, lastGameState, {
+    console.log(userGuess, 'from actions.GUESS_NUMBER');
+    var feedback = hotOrCold(userGuess, secretNumber, guessArray);
+
+    var guessState = Object.assign({}, state, {
       userGuess: userGuess,
       guessArray: guessArray.concat(userGuess),
-      guessCounter: currentCount,
       feedback: feedback
     });
     console.log(guessState, 'from actions.GUESS_NUMBER');
@@ -60,20 +53,20 @@ var gameReducer = function(state, action){
 }
 
 //logic for the game. returns feedback to the player.
-function hotOrCold(userGuess, secretNumber){
+function hotOrCold(userGuess, secretNumber, guessArray){
   var feedback = document.getElementById('feedback').innerHTML;
 
   //form validation
-  if (isNaN(action.number) || (action.number < 1 || action.number > 100)){
+  if (isNaN(userGuess) || (userGuess < 1 || userGuess > 100)){
     console.log('Enter a number between 1 and 100');
   }
   //check to see if the guess wins the game
-  if (action.number === state.secretNumber) {
+  if (userGuess === secretNumber) {
     feedback = 'YOU WIN!!!';
   }
   else { //play the game.
-    let currentDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray.length]);
-    let previousDifference = Math.abs(state.secretNumber - state.guessArray[state.guessArray - 1]);
+    let currentDifference = Math.abs(secretNumber - guessArray[guessArray.length]);
+    let previousDifference = Math.abs(secretNumber - guessArray[guessArray.length - 1]);
 
     if (currentDifference === previousDifference) {
       console.log('Please enter a different number');

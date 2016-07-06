@@ -6,13 +6,11 @@ var actions = require('../js/actions');
 class Header extends React.Component{
   constructor(props){
     super(props);
-    console.log(props, 'from Header');
     this.openModal = this.openModal.bind(this);
     this.newGame = this.newGame.bind(this);
   }
   //reset the game
   newGame(){
-
     var secretNumber = Math.floor(Math.random() * 100) + 1;
     this.props.dispatch(actions.newGame(secretNumber));
   }
@@ -24,7 +22,6 @@ class Header extends React.Component{
     }
     this.props.dispatch(actions.openModal());
   }
-
   render(){
     return(
       <div>
