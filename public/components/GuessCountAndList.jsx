@@ -9,7 +9,9 @@ class GuessCountAndList extends React.Component {
   constructor(props){
     super(props);
   }
-
+  componentDidMount(){
+    this.props.dispatch(actions.fetchFewestGuesses(this.props.fewestGuesses));
+  }
   render(){
 
     var guesses = this.props.guessArray.map(function(guess, index){
@@ -17,9 +19,11 @@ class GuessCountAndList extends React.Component {
           <li key={index}>{guess}</li>
       );
     });
+
     return(
       <div>
         <p>Guess #<span id='count'>{this.props.guessArray.length}</span>!</p>
+        <p>The fewest guesses you took was <span>{this.props.fewestGuesses}</span></p>
         <ul id='guessList' className='guessBox clearfix'>
           {guesses}
         </ul>

@@ -5,6 +5,7 @@ var secretNumber = Math.floor(Math.random() * 100) + 1;
 var initialGameState = {
   guessArray: [],
   userGuess: '',
+  fewestGuesses: 500,
   secretNumber: secretNumber,
   feedback: 'Make your Guess!',
   isModalOpen: false
@@ -24,7 +25,7 @@ var gameReducer = function(state, action){
     var guessArray = state.guessArray;
 
     console.log(userGuess, 'from actions.GUESS_NUMBER');
-    var feedback = hotOrCold(userGuess, secretNumber, guessArray);
+    var feedback = hotOrCold(userGuess, secretNumber, guessArray + 1);
 
     var guessState = Object.assign({}, state, {
       userGuess: userGuess,
@@ -46,6 +47,12 @@ var gameReducer = function(state, action){
     });
     return modalState;
   }
+  else if (action.type === actions.FETCH_FEWEST_GUESS_SUCCESS) {
+    return Object.assign({}, state, {fewestGuesses: action.fewestGuesses});
+  }
+  else if (action.type === actions.FETCH_FEWEST_GUESS_ERROR) {
+    throw new Error('The game broke');
+  }
   else {
     console.log('I don\'t know that action');
   }
@@ -54,34 +61,39 @@ var gameReducer = function(state, action){
 
 //logic for the game. returns feedback to the player.
 function hotOrCold(userGuess, secretNumber, guessArray){
-  var feedback = document.getElementById('feedback').innerHTML;
-
+  var userGuess = parseInt(userGuess, 10);
+  var feedback;
   //form validation
   if (isNaN(userGuess) || (userGuess < 1 || userGuess > 100)){
     console.log('Enter a number between 1 and 100');
   }
   //check to see if the guess wins the game
-  if (userGuess === secretNumber) {
+  if (userGuess == secretNumber) {
     feedback = 'YOU WIN!!!';
+
   }
   else { //play the game.
-    let currentDifference = Math.abs(secretNumber - guessArray[guessArray.length]);
-    let previousDifference = Math.abs(secretNumber - guessArray[guessArray.length - 1]);
+    var currentDifference = Math.abs(secretNumber - parseInt(guessArray[guessArray.length], 10));
+    var previousDifference = Math.abs(secretNumber - parseInt(guessArray[guessArray.length - 1], 10));
 
-    if (currentDifference === previousDifference) {
+    if (currentDifference == previousDifference) {
       console.log('Please enter a different number');
     }
     else if (currentDifference > 50) {
       feedback = 'Very cold!';
+      debugger;
     }
     else if (currentDifference <= 50 && currentDifference > 30){
       feedback = 'Cold';
+
     }
     else if (currentDifference <= 30 && currentDifference > 10) {
       feedback = 'Hot';
+
     }
     else {
       feedback = 'Very hot!';
+      debugger;
     }
   }
   return feedback;

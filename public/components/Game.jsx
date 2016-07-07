@@ -22,7 +22,8 @@ class Game extends React.Component{
         <Header modalState={this.props.isModalOpen} />
         <h2 id='feedback'>{this.props.feedback}</h2>
         <GameForm />
-        <GuessCountAndList guessArray={this.props.guessArray}/>
+        <GuessCountAndList guessArray={this.props.guessArray}
+          fewestGuesses={this.props.fewestGuesses} />
       </div>
     );
   }
@@ -33,6 +34,7 @@ var mapStateToProps = function(state, props){
     guessArray: state.guessArray,
     guessCounter: state.guessCounter,
     userGuess: state.userGuess,
+    fewestGuesses: state.fewestGuesses,
     secretNumber: state.secretNumber,
     feedback: state.feedback,
     isModalOpen: state.isModalOpen,
