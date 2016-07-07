@@ -58,13 +58,13 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _Game = __webpack_require__(187);
+	var _Game = __webpack_require__(185);
 	
 	var _Game2 = _interopRequireDefault(_Game);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Provider = __webpack_require__(188).Provider;
+	var Provider = __webpack_require__(186).Provider;
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  _reactDom2.default.render(_react2.default.createElement(
@@ -21258,7 +21258,7 @@
 
 	'use strict';
 	
-	var actions = __webpack_require__(184);
+	var actions = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./actions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var secretNumber = Math.floor(Math.random() * 100) + 1;
 	
@@ -21304,6 +21304,7 @@
 	    });
 	    return modalState;
 	  } else if (action.type === actions.FETCH_FEWEST_GUESS_SUCCESS) {
+	    var fewestGuesses = compareNumberOfGuesses(state.fewestGuesses, state.guessArray.length);
 	    return Object.assign({}, state, { fewestGuesses: action.fewestGuesses });
 	  } else if (action.type === actions.FETCH_FEWEST_GUESS_ERROR) {
 	    throw new Error('The game broke');
@@ -21340,602 +21341,24 @@
 	      feedback = 'Hot';
 	    } else {
 	      feedback = 'Very hot!';
-	      debugger;
 	    }
 	  }
 	  return feedback;
 	};
 	
+	var compareNumberOfGuesses = function compareNumberOfGuesses(fewestGuesses, currentGuesses) {
+	  if (fewestGuesses <= currentGuesses) {
+	    return fewestGuesses;
+	  } else {
+	    return currentGuesses;
+	  }
+	};
+	
 	exports.gameReducer = gameReducer;
 
 /***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	//actions/action creators (the functions) describe that something happened. But they don't actually do anything to state.
-	//thats the job of the reducers.
-	
-	var fetch = __webpack_require__(185);
-	
-	var NEW_GAME = 'NEW_GAME';
-	var newGame = function newGame(secretNumber) {
-	  return {
-	    type: NEW_GAME,
-	    secretNumber: secretNumber
-	  };
-	};
-	
-	var GUESS_NUMBER = 'GUESS_NUMBER';
-	var guessNumber = function guessNumber(number) {
-	  return {
-	    type: GUESS_NUMBER,
-	    number: number
-	  };
-	};
-	
-	var OPEN_MODAL = 'OPEN_MODAL';
-	var openModal = function openModal() {
-	  return {
-	    type: OPEN_MODAL,
-	    show: true
-	  };
-	};
-	
-	var CLOSE_MODAL = 'CLOSE_MODAL';
-	var closeModal = function closeModal() {
-	  return {
-	    type: CLOSE_MODAL,
-	    show: false
-	  };
-	};
-	
-	var FETCH_FEWEST_GUESS_SUCCESS = 'FETCH_FEWEST_GUESS_SUCCESS';
-	var fetchFewestGuessSuccess = function fetchFewestGuessSuccess(fewestGuesses) {
-	  return {
-	    type: FETCH_FEWEST_GUESS_SUCCESS,
-	    fewestGuesses: fewestGuesses
-	  };
-	};
-	
-	var FETCH_FEWEST_GUESS_ERROR = 'FETCH_FEWEST_GUESS_ERROR';
-	var fetchFewestGuessError = function fetchFewestGuessError(fewestGuesses, error) {
-	  return {
-	    type: FETCH_FEWEST_GUESS_ERROR,
-	    fewestGuesses: fewestGuesses,
-	    error: error
-	  };
-	};
-	
-	var fetchFewestGuesses = function fetchFewestGuesses(fewestGuesses) {
-	  return function (dispatch) {
-	    var url = '/guesses';
-	    return fetch(url).then(function (response) {
-	      if (response.state < 200 || response.status >= 300) {
-	        var error = new Error(response.statusText);
-	        error.response = response;
-	        throw error;
-	      }
-	      return response;
-	    }).then(function (response) {
-	      return response.json();
-	    }).then(function (data) {
-	      var fewestGuesses = data.fewestGuesses;
-	      return dispatch(fetchFewestGuessSuccess(fewestGuesses));
-	    }).catch(function (error) {
-	      return dispatch(fetchFewestGuessError(fewestGuesses, error));
-	    });
-	  };
-	};
-	
-	// var TOGGLE_MODAL = 'TOGGLE_MODAL';
-	// var toggleModal = function(displayStyle){
-	//   return {
-	//     type: TOGGLE_MODAL,
-	//     displayStyle: displayStyle
-	//   };
-	// };
-	
-	exports.NEW_GAME = NEW_GAME;
-	exports.newGame = newGame;
-	
-	exports.GUESS_NUMBER = GUESS_NUMBER;
-	exports.guessNumber = guessNumber;
-	
-	exports.OPEN_MODAL = OPEN_MODAL;
-	exports.openModal = openModal;
-	
-	exports.CLOSE_MODAL = CLOSE_MODAL;
-	exports.closeModal = closeModal;
-	
-	exports.FETCH_FEWEST_GUESS_SUCCESS = FETCH_FEWEST_GUESS_SUCCESS;
-	exports.fetchFewestGuessSuccess = fetchFewestGuessSuccess;
-	
-	exports.FETCH_FEWEST_GUESS_ERROR = FETCH_FEWEST_GUESS_ERROR;
-	exports.fetchFewestGuessError = fetchFewestGuessError;
-	
-	exports.fetchFewestGuesses = fetchFewestGuesses;
-	
-	// exports.TOGGLE_MODAL = TOGGLE_MODAL;
-	// exports.toggleModal = toggleModal;
-
-	// var GUESS_BUTTON_CLICK = 'GUESS_BUTTON_CLICK';
-	// var guessButtonClick = function(guessCounter, feedback){
-	//   type: GUESS_BUTTON_CLICK,
-	//   guessCounter: guessCounter,
-	//   feedback: feedback
-	// }
-
-	// export const NEW_GAME = 'NEW_GAME';
-	// export const newGame = function(secretNumber){
-	//   return {
-	//     type: NEW_GAME,
-	//     secretNumber: secretNumber
-	//   };
-	// };
-
-	// export const MODAL_STATE = 'MODAL_STATE';
-	// export const modalState = function(){
-	//   type: MODAL_STATE
-	// }
-
-	// exports.GUESS_BUTTON_CLICK;
-	// exports.guessButtonClick = guessButtonClick;
-
-/***/ },
+/* 184 */,
 /* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// the whatwg-fetch polyfill installs the fetch() function
-	// on the global object (window or self)
-	//
-	// Return that as the export for use in Webpack, Browserify etc.
-	__webpack_require__(186);
-	module.exports = self.fetch.bind(self);
-
-
-/***/ },
-/* 186 */
-/***/ function(module, exports) {
-
-	(function(self) {
-	  'use strict';
-	
-	  if (self.fetch) {
-	    return
-	  }
-	
-	  var support = {
-	    searchParams: 'URLSearchParams' in self,
-	    iterable: 'Symbol' in self && 'iterator' in Symbol,
-	    blob: 'FileReader' in self && 'Blob' in self && (function() {
-	      try {
-	        new Blob()
-	        return true
-	      } catch(e) {
-	        return false
-	      }
-	    })(),
-	    formData: 'FormData' in self,
-	    arrayBuffer: 'ArrayBuffer' in self
-	  }
-	
-	  function normalizeName(name) {
-	    if (typeof name !== 'string') {
-	      name = String(name)
-	    }
-	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
-	      throw new TypeError('Invalid character in header field name')
-	    }
-	    return name.toLowerCase()
-	  }
-	
-	  function normalizeValue(value) {
-	    if (typeof value !== 'string') {
-	      value = String(value)
-	    }
-	    return value
-	  }
-	
-	  // Build a destructive iterator for the value list
-	  function iteratorFor(items) {
-	    var iterator = {
-	      next: function() {
-	        var value = items.shift()
-	        return {done: value === undefined, value: value}
-	      }
-	    }
-	
-	    if (support.iterable) {
-	      iterator[Symbol.iterator] = function() {
-	        return iterator
-	      }
-	    }
-	
-	    return iterator
-	  }
-	
-	  function Headers(headers) {
-	    this.map = {}
-	
-	    if (headers instanceof Headers) {
-	      headers.forEach(function(value, name) {
-	        this.append(name, value)
-	      }, this)
-	
-	    } else if (headers) {
-	      Object.getOwnPropertyNames(headers).forEach(function(name) {
-	        this.append(name, headers[name])
-	      }, this)
-	    }
-	  }
-	
-	  Headers.prototype.append = function(name, value) {
-	    name = normalizeName(name)
-	    value = normalizeValue(value)
-	    var list = this.map[name]
-	    if (!list) {
-	      list = []
-	      this.map[name] = list
-	    }
-	    list.push(value)
-	  }
-	
-	  Headers.prototype['delete'] = function(name) {
-	    delete this.map[normalizeName(name)]
-	  }
-	
-	  Headers.prototype.get = function(name) {
-	    var values = this.map[normalizeName(name)]
-	    return values ? values[0] : null
-	  }
-	
-	  Headers.prototype.getAll = function(name) {
-	    return this.map[normalizeName(name)] || []
-	  }
-	
-	  Headers.prototype.has = function(name) {
-	    return this.map.hasOwnProperty(normalizeName(name))
-	  }
-	
-	  Headers.prototype.set = function(name, value) {
-	    this.map[normalizeName(name)] = [normalizeValue(value)]
-	  }
-	
-	  Headers.prototype.forEach = function(callback, thisArg) {
-	    Object.getOwnPropertyNames(this.map).forEach(function(name) {
-	      this.map[name].forEach(function(value) {
-	        callback.call(thisArg, value, name, this)
-	      }, this)
-	    }, this)
-	  }
-	
-	  Headers.prototype.keys = function() {
-	    var items = []
-	    this.forEach(function(value, name) { items.push(name) })
-	    return iteratorFor(items)
-	  }
-	
-	  Headers.prototype.values = function() {
-	    var items = []
-	    this.forEach(function(value) { items.push(value) })
-	    return iteratorFor(items)
-	  }
-	
-	  Headers.prototype.entries = function() {
-	    var items = []
-	    this.forEach(function(value, name) { items.push([name, value]) })
-	    return iteratorFor(items)
-	  }
-	
-	  if (support.iterable) {
-	    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
-	  }
-	
-	  function consumed(body) {
-	    if (body.bodyUsed) {
-	      return Promise.reject(new TypeError('Already read'))
-	    }
-	    body.bodyUsed = true
-	  }
-	
-	  function fileReaderReady(reader) {
-	    return new Promise(function(resolve, reject) {
-	      reader.onload = function() {
-	        resolve(reader.result)
-	      }
-	      reader.onerror = function() {
-	        reject(reader.error)
-	      }
-	    })
-	  }
-	
-	  function readBlobAsArrayBuffer(blob) {
-	    var reader = new FileReader()
-	    reader.readAsArrayBuffer(blob)
-	    return fileReaderReady(reader)
-	  }
-	
-	  function readBlobAsText(blob) {
-	    var reader = new FileReader()
-	    reader.readAsText(blob)
-	    return fileReaderReady(reader)
-	  }
-	
-	  function Body() {
-	    this.bodyUsed = false
-	
-	    this._initBody = function(body) {
-	      this._bodyInit = body
-	      if (typeof body === 'string') {
-	        this._bodyText = body
-	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
-	        this._bodyBlob = body
-	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
-	        this._bodyFormData = body
-	      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-	        this._bodyText = body.toString()
-	      } else if (!body) {
-	        this._bodyText = ''
-	      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
-	        // Only support ArrayBuffers for POST method.
-	        // Receiving ArrayBuffers happens via Blobs, instead.
-	      } else {
-	        throw new Error('unsupported BodyInit type')
-	      }
-	
-	      if (!this.headers.get('content-type')) {
-	        if (typeof body === 'string') {
-	          this.headers.set('content-type', 'text/plain;charset=UTF-8')
-	        } else if (this._bodyBlob && this._bodyBlob.type) {
-	          this.headers.set('content-type', this._bodyBlob.type)
-	        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-	          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
-	        }
-	      }
-	    }
-	
-	    if (support.blob) {
-	      this.blob = function() {
-	        var rejected = consumed(this)
-	        if (rejected) {
-	          return rejected
-	        }
-	
-	        if (this._bodyBlob) {
-	          return Promise.resolve(this._bodyBlob)
-	        } else if (this._bodyFormData) {
-	          throw new Error('could not read FormData body as blob')
-	        } else {
-	          return Promise.resolve(new Blob([this._bodyText]))
-	        }
-	      }
-	
-	      this.arrayBuffer = function() {
-	        return this.blob().then(readBlobAsArrayBuffer)
-	      }
-	
-	      this.text = function() {
-	        var rejected = consumed(this)
-	        if (rejected) {
-	          return rejected
-	        }
-	
-	        if (this._bodyBlob) {
-	          return readBlobAsText(this._bodyBlob)
-	        } else if (this._bodyFormData) {
-	          throw new Error('could not read FormData body as text')
-	        } else {
-	          return Promise.resolve(this._bodyText)
-	        }
-	      }
-	    } else {
-	      this.text = function() {
-	        var rejected = consumed(this)
-	        return rejected ? rejected : Promise.resolve(this._bodyText)
-	      }
-	    }
-	
-	    if (support.formData) {
-	      this.formData = function() {
-	        return this.text().then(decode)
-	      }
-	    }
-	
-	    this.json = function() {
-	      return this.text().then(JSON.parse)
-	    }
-	
-	    return this
-	  }
-	
-	  // HTTP methods whose capitalization should be normalized
-	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
-	
-	  function normalizeMethod(method) {
-	    var upcased = method.toUpperCase()
-	    return (methods.indexOf(upcased) > -1) ? upcased : method
-	  }
-	
-	  function Request(input, options) {
-	    options = options || {}
-	    var body = options.body
-	    if (Request.prototype.isPrototypeOf(input)) {
-	      if (input.bodyUsed) {
-	        throw new TypeError('Already read')
-	      }
-	      this.url = input.url
-	      this.credentials = input.credentials
-	      if (!options.headers) {
-	        this.headers = new Headers(input.headers)
-	      }
-	      this.method = input.method
-	      this.mode = input.mode
-	      if (!body) {
-	        body = input._bodyInit
-	        input.bodyUsed = true
-	      }
-	    } else {
-	      this.url = input
-	    }
-	
-	    this.credentials = options.credentials || this.credentials || 'omit'
-	    if (options.headers || !this.headers) {
-	      this.headers = new Headers(options.headers)
-	    }
-	    this.method = normalizeMethod(options.method || this.method || 'GET')
-	    this.mode = options.mode || this.mode || null
-	    this.referrer = null
-	
-	    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
-	      throw new TypeError('Body not allowed for GET or HEAD requests')
-	    }
-	    this._initBody(body)
-	  }
-	
-	  Request.prototype.clone = function() {
-	    return new Request(this)
-	  }
-	
-	  function decode(body) {
-	    var form = new FormData()
-	    body.trim().split('&').forEach(function(bytes) {
-	      if (bytes) {
-	        var split = bytes.split('=')
-	        var name = split.shift().replace(/\+/g, ' ')
-	        var value = split.join('=').replace(/\+/g, ' ')
-	        form.append(decodeURIComponent(name), decodeURIComponent(value))
-	      }
-	    })
-	    return form
-	  }
-	
-	  function headers(xhr) {
-	    var head = new Headers()
-	    var pairs = (xhr.getAllResponseHeaders() || '').trim().split('\n')
-	    pairs.forEach(function(header) {
-	      var split = header.trim().split(':')
-	      var key = split.shift().trim()
-	      var value = split.join(':').trim()
-	      head.append(key, value)
-	    })
-	    return head
-	  }
-	
-	  Body.call(Request.prototype)
-	
-	  function Response(bodyInit, options) {
-	    if (!options) {
-	      options = {}
-	    }
-	
-	    this.type = 'default'
-	    this.status = options.status
-	    this.ok = this.status >= 200 && this.status < 300
-	    this.statusText = options.statusText
-	    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
-	    this.url = options.url || ''
-	    this._initBody(bodyInit)
-	  }
-	
-	  Body.call(Response.prototype)
-	
-	  Response.prototype.clone = function() {
-	    return new Response(this._bodyInit, {
-	      status: this.status,
-	      statusText: this.statusText,
-	      headers: new Headers(this.headers),
-	      url: this.url
-	    })
-	  }
-	
-	  Response.error = function() {
-	    var response = new Response(null, {status: 0, statusText: ''})
-	    response.type = 'error'
-	    return response
-	  }
-	
-	  var redirectStatuses = [301, 302, 303, 307, 308]
-	
-	  Response.redirect = function(url, status) {
-	    if (redirectStatuses.indexOf(status) === -1) {
-	      throw new RangeError('Invalid status code')
-	    }
-	
-	    return new Response(null, {status: status, headers: {location: url}})
-	  }
-	
-	  self.Headers = Headers
-	  self.Request = Request
-	  self.Response = Response
-	
-	  self.fetch = function(input, init) {
-	    return new Promise(function(resolve, reject) {
-	      var request
-	      if (Request.prototype.isPrototypeOf(input) && !init) {
-	        request = input
-	      } else {
-	        request = new Request(input, init)
-	      }
-	
-	      var xhr = new XMLHttpRequest()
-	
-	      function responseURL() {
-	        if ('responseURL' in xhr) {
-	          return xhr.responseURL
-	        }
-	
-	        // Avoid security warnings on getResponseHeader when not allowed by CORS
-	        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
-	          return xhr.getResponseHeader('X-Request-URL')
-	        }
-	
-	        return
-	      }
-	
-	      xhr.onload = function() {
-	        var options = {
-	          status: xhr.status,
-	          statusText: xhr.statusText,
-	          headers: headers(xhr),
-	          url: responseURL()
-	        }
-	        var body = 'response' in xhr ? xhr.response : xhr.responseText
-	        resolve(new Response(body, options))
-	      }
-	
-	      xhr.onerror = function() {
-	        reject(new TypeError('Network request failed'))
-	      }
-	
-	      xhr.ontimeout = function() {
-	        reject(new TypeError('Network request failed'))
-	      }
-	
-	      xhr.open(request.method, request.url, true)
-	
-	      if (request.credentials === 'include') {
-	        xhr.withCredentials = true
-	      }
-	
-	      if ('responseType' in xhr && support.blob) {
-	        xhr.responseType = 'blob'
-	      }
-	
-	      request.headers.forEach(function(value, name) {
-	        xhr.setRequestHeader(name, value)
-	      })
-	
-	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
-	    })
-	  }
-	  self.fetch.polyfill = true
-	})(typeof self !== 'undefined' ? self : this);
-
-
-/***/ },
-/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21946,17 +21369,17 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(188);
+	var _reactRedux = __webpack_require__(186);
 	
-	var _Header = __webpack_require__(197);
+	var _Header = __webpack_require__(195);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _GameForm = __webpack_require__(199);
+	var _GameForm = __webpack_require__(197);
 	
 	var _GameForm2 = _interopRequireDefault(_GameForm);
 	
-	var _GuessCountAndList = __webpack_require__(200);
+	var _GuessCountAndList = __webpack_require__(198);
 	
 	var _GuessCountAndList2 = _interopRequireDefault(_GuessCountAndList);
 	
@@ -21968,7 +21391,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var actions = __webpack_require__(184);
+	var actions = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../js/actions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var Game = function (_React$Component) {
 	  _inherits(Game, _React$Component);
@@ -22058,7 +21481,7 @@
 	// }
 
 /***/ },
-/* 188 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22066,11 +21489,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 	
-	var _Provider = __webpack_require__(189);
+	var _Provider = __webpack_require__(187);
 	
 	var _Provider2 = _interopRequireDefault(_Provider);
 	
-	var _connect = __webpack_require__(192);
+	var _connect = __webpack_require__(190);
 	
 	var _connect2 = _interopRequireDefault(_connect);
 	
@@ -22080,7 +21503,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 189 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -22090,11 +21513,11 @@
 	
 	var _react = __webpack_require__(1);
 	
-	var _storeShape = __webpack_require__(190);
+	var _storeShape = __webpack_require__(188);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _warning = __webpack_require__(191);
+	var _warning = __webpack_require__(189);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -22164,7 +21587,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 190 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22180,7 +21603,7 @@
 	});
 
 /***/ },
-/* 191 */
+/* 189 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22209,7 +21632,7 @@
 	}
 
 /***/ },
-/* 192 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -22221,19 +21644,19 @@
 	
 	var _react = __webpack_require__(1);
 	
-	var _storeShape = __webpack_require__(190);
+	var _storeShape = __webpack_require__(188);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _shallowEqual = __webpack_require__(193);
+	var _shallowEqual = __webpack_require__(191);
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 	
-	var _wrapActionCreators = __webpack_require__(194);
+	var _wrapActionCreators = __webpack_require__(192);
 	
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 	
-	var _warning = __webpack_require__(191);
+	var _warning = __webpack_require__(189);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -22241,11 +21664,11 @@
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _hoistNonReactStatics = __webpack_require__(195);
+	var _hoistNonReactStatics = __webpack_require__(193);
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _invariant = __webpack_require__(196);
+	var _invariant = __webpack_require__(194);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -22608,7 +22031,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 193 */
+/* 191 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -22639,7 +22062,7 @@
 	}
 
 /***/ },
-/* 194 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22656,7 +22079,7 @@
 	}
 
 /***/ },
-/* 195 */
+/* 193 */
 /***/ function(module, exports) {
 
 	/**
@@ -22712,7 +22135,7 @@
 
 
 /***/ },
-/* 196 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22770,7 +22193,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 197 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22784,9 +22207,9 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(1);
-	var ModalBox = __webpack_require__(198);
-	var connect = __webpack_require__(188).connect;
-	var actions = __webpack_require__(184);
+	var ModalBox = __webpack_require__(196);
+	var connect = __webpack_require__(186).connect;
+	var actions = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../js/actions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var Header = function (_React$Component) {
 	  _inherits(Header, _React$Component);
@@ -22870,7 +22293,7 @@
 	module.exports = Container;
 
 /***/ },
-/* 198 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22884,8 +22307,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(1);
-	var connect = __webpack_require__(188).connect;
-	var actions = __webpack_require__(184);
+	var connect = __webpack_require__(186).connect;
+	var actions = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../js/actions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	//add function to show/hide the modal a la jquery show/hide
 	
@@ -22993,7 +22416,7 @@
 	module.exports = Container;
 
 /***/ },
-/* 199 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23007,8 +22430,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(1);
-	var connect = __webpack_require__(188).connect;
-	var actions = __webpack_require__(184);
+	var connect = __webpack_require__(186).connect;
+	var actions = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../js/actions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var GameForm = function (_React$Component) {
 	  _inherits(GameForm, _React$Component);
@@ -23055,7 +22478,7 @@
 	module.exports = Container;
 
 /***/ },
-/* 200 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23070,7 +22493,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(188);
+	var _reactRedux = __webpack_require__(186);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -23080,7 +22503,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var actions = __webpack_require__(184);
+	var actions = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../js/actions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	// import Guess from './Guess';
 	
@@ -23099,6 +22522,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.props.dispatch(actions.fetchFewestGuesses(this.props.fewestGuesses));
+	      console.log(this.props);
 	    }
 	  }, {
 	    key: 'render',
@@ -23129,12 +22553,8 @@
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          'The fewest guesses you took was ',
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            this.props.fewestGuesses
-	          )
+	          'Fewest guesses: ',
+	          this.props.fewestGuesses
 	        ),
 	        _react2.default.createElement(
 	          'ul',

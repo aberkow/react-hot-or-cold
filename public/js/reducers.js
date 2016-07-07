@@ -48,6 +48,7 @@ var gameReducer = function(state, action){
     return modalState;
   }
   else if (action.type === actions.FETCH_FEWEST_GUESS_SUCCESS) {
+    var fewestGuesses = compareNumberOfGuesses(state.fewestGuesses, state.guessArray.length);
     return Object.assign({}, state, {fewestGuesses: action.fewestGuesses});
   }
   else if (action.type === actions.FETCH_FEWEST_GUESS_ERROR) {
@@ -93,10 +94,17 @@ function hotOrCold(userGuess, secretNumber, guessArray){
     }
     else {
       feedback = 'Very hot!';
-      debugger;
     }
   }
   return feedback;
 };
+
+var compareNumberOfGuesses = function(fewestGuesses, currentGuesses){
+  if (fewestGuesses <= currentGuesses){
+    return fewestGuesses;
+  } else {
+    return currentGuesses;
+  }
+}
 
 exports.gameReducer = gameReducer;

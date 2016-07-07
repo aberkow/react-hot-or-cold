@@ -52,6 +52,14 @@ var fetchFewestGuessError = function(fewestGuesses, error){
   };
 };
 
+var POST_NUMBER_OF_GUESSES = 'POST_NUMBER_OF_GUESSES';
+var postNumberOfGuesses = function(numberOfGuesses){
+    return {
+    type: POST_NUMBER_OF_GUESSES,
+    numberOfGuesses: numberOfGuesses
+  }
+}
+
 var fetchFewestGuesses = function(fewestGuesses){
   return function(dispatch){
     var url = '/guesses';
@@ -67,6 +75,7 @@ var fetchFewestGuesses = function(fewestGuesses){
       return response.json();
     })
     .then(function(data){
+      console.log(data, 'from fetchFewestGuesses()');
       var fewestGuesses = data.fewestGuesses;
       return dispatch(fetchFewestGuessSuccess(fewestGuesses));
       })
@@ -75,6 +84,25 @@ var fetchFewestGuesses = function(fewestGuesses){
     });
   }
 }
+
+var numberOfGuessesToServer = function(numberOfGuesses){
+  return function(dispatch){
+    var url = '/guesses';
+    dispatch(postNumberOfGuesses(numberOfGuesses));
+    fetch(url, {
+      method: 'post',
+      body: JSON.stringify({
+        numberOfGuesses
+      })
+    })
+    .then(function(data){
+      console.log(data, 'from numberOfGuessesToServer');
+      // var fewestGuesses = data.fewestGuesses
+    })
+    .catch(function(error){
+      throw new Error('something went wrong in numberOfGuessesToServer');
+    });
+  }
 
 // var TOGGLE_MODAL = 'TOGGLE_MODAL';
 // var toggleModal = function(displayStyle){
@@ -102,32 +130,8 @@ exports.fetchFewestGuessSuccess = fetchFewestGuessSuccess;
 exports.FETCH_FEWEST_GUESS_ERROR = FETCH_FEWEST_GUESS_ERROR;
 exports.fetchFewestGuessError = fetchFewestGuessError;
 
+exports.POST_NUMBER_OF_GUESSES = POST_NUMBER_OF_GUESSES;
+exports.postNumberOfGuesses = postNumberOfGuesses;
+
 exports.fetchFewestGuesses = fetchFewestGuesses;
-
-// exports.TOGGLE_MODAL = TOGGLE_MODAL;
-// exports.toggleModal = toggleModal;
-
-
-
-// var GUESS_BUTTON_CLICK = 'GUESS_BUTTON_CLICK';
-// var guessButtonClick = function(guessCounter, feedback){
-//   type: GUESS_BUTTON_CLICK,
-//   guessCounter: guessCounter,
-//   feedback: feedback
-// }
-
-// export const NEW_GAME = 'NEW_GAME';
-// export const newGame = function(secretNumber){
-//   return {
-//     type: NEW_GAME,
-//     secretNumber: secretNumber
-//   };
-// };
-
-// export const MODAL_STATE = 'MODAL_STATE';
-// export const modalState = function(){
-//   type: MODAL_STATE
-// }
-
-// exports.GUESS_BUTTON_CLICK;
-// exports.guessButtonClick = guessButtonClick;
+exports.numberOfGuessesToServer = numberOfGuessesToServer;
