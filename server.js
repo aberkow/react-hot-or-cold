@@ -9,8 +9,8 @@ var fewestGuesses = function(){
   this.fewestGuesses = 500;
 };
 
-fewestGuesses.prototype.updateNumberOfGuesses = function(guess){
-  this.fewestGuesses = guess;
+fewestGuesses.prototype.updateNumberOfGuesses = function(guessArray){
+  this.fewestGuesses = guessArray.length;
 };
 
 var fewestGuesses = new fewestGuesses();

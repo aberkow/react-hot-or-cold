@@ -73,7 +73,7 @@ function hotOrCold(userGuess, secretNumber, guessArray){
 
   }
   else { //play the game.
-    var currentDifference = Math.abs(secretNumber - parseInt(guessArray[guessArray.length], 10));
+    var currentDifference = Math.abs(secretNumber - userGuess);
     var previousDifference = Math.abs(secretNumber - parseInt(guessArray[guessArray.length - 1], 10));
 
     if (currentDifference == previousDifference) {
