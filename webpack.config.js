@@ -5,7 +5,7 @@ var packageData = require('./package.json');
 module.exports = {
   entry: path.resolve(__dirname, packageData.main),
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, './public/build'),
     filename: 'bundle.js'
   },
   devtool: 'source-map',

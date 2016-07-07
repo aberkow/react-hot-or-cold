@@ -1,7 +1,7 @@
 {
   "name": "react-hot-or-cold",
   "version": "1.0.0",
-  "main": "./index.jsx",
+  "main": "./public/index.jsx",
   "scripts": {
     "dev-server": "webpack-dev-server --content-base build --inline --hot --port 3000",
     "webpack-watch": "webpack --watch",
@@ -10,10 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "isomorphic-fetch": "^2.2.1",
+    "morgan": "^1.7.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
